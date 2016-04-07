@@ -17,7 +17,9 @@ public class UserService {
 			return userDAO.getUserByUsername(username);
 		else
 			return null;
+	}	
+	
+	public User adduser(String firstName, String lastName, String role, String username, String password, String email,long personId){
+		return userDAO.createNewUser(firstName, lastName, role, username, password, email, personId);
 	}
-	
-	
 }

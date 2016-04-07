@@ -1,38 +1,46 @@
 package com.wechat.pojo;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collection;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
-@Entity(name = "User")
-@Table(name="user")
-public class User implements Serializable{
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 2595870480101596305L;
+import org.hibernate.annotations.Cascade;
 
-	@Id
-	@GeneratedValue
-	@Column(name="userid")
-	private int userID;
-	
-	@Column(name="username")
+@Entity
+@Table(name="user_table")
+@PrimaryKeyJoinColumn(name="personId")
+public class User extends Person implements Serializable{
+	@Column(nullable=false)
 	private String username;
-	
-	@Column(name="password")
 	private String password;
+	private String email;
+	private String queueName;
 	
-	public int getUserID() {
-		return userID;
+	@ManyToMany
+	private Collection<User> hostId = new ArrayList<User>();
+	
+	@ManyToMany(mappedBy="hostId")
+	private Collection<User> friendList = new ArrayList<User>();
+	
+	@ManyToMany(cascade = CascadeType.ALL)
+	private Collection<Chatroom> joinedChatRooms = new ArrayList<Chatroom>();
+	
+	public User() {
+		super();
+		this.hostId = new ArrayList<User>();
+		this.friendList = new ArrayList<User>();
+		this.joinedChatRooms = new ArrayList<Chatroom>();
 	}
-	public void setUserID(int userID) {
-		this.userID = userID;
-	}
+	
 	public String getUsername() {
 		return username;
 	}
@@ -45,11 +53,44 @@ public class User implements Serializable{
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	@Override
-	public String toString() {
-		return "User [userID=" + userID + ", username=" + username + ", password=" + password + "]";
+	
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	public String getQueueName() {
+		return queueName;
+	}
+	public void setQueueName(String queueName) {
+		this.queueName = queueName;
+	}
+	public Collection<User> getHostId() {
+		return hostId;
+	}
+	public void setHostId(Collection<User> hostId) {
+		this.hostId = hostId;
+	}
+	public Collection<User> getFriendList() {
+		return friendList;
+	}
+	public void setFriendList(Collection<User> friendList) {
+		this.friendList = friendList;
 	}
 	
 	
+	public Collection<Chatroom> getJoinedChatRooms() {
+		return joinedChatRooms;
+	}
+
+	public void setJoinedChatRooms(Collection<Chatroom> joinedChatRooms) {
+		this.joinedChatRooms = joinedChatRooms;
+	}
+
+	@Override
+	public String toString() {
+		return "User [username=" + username + ", password=" + password + "]";
+	}
 	
 }
