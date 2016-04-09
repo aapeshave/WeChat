@@ -19,7 +19,8 @@ public abstract class BaseDAO {
 	
 	private static final Logger log = Logger.getAnonymousLogger();
 	private static final ThreadLocal sessionThread = new ThreadLocal();
-    private static final SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+    @SuppressWarnings("deprecation")
+	private static final SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
     
     /*
      * 

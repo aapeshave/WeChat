@@ -1,5 +1,6 @@
 package com.wechat.controller;
 
+import java.io.IOException;
 import java.text.DateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -11,23 +12,23 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.util.SystemPropertyUtils;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.wechat.pojo.User;
 import com.wechat.service.AuthenticationService;
-import com.wechat.service.UserService;
 
 @Controller
 public class LoginController {
 private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 	
-@Autowired
-private UserService userService;
 @Autowired
 private AuthenticationService authenticationService;
 
@@ -51,20 +52,36 @@ private AuthenticationService authenticationService;
 	}
 	
 	@RequestMapping(value="/loginMe.htm",method = RequestMethod.POST)
-	public ModelAndView loginUser(HttpServletRequest request, HttpServletResponse response){
-		ModelAndView mv = new ModelAndView();
+	public @ResponseBody String loginUser(HttpServletRequest request, HttpServletResponse response) throws IOException{
 		String email = request.getParameter("input_email");
 		String password = request.getParameter("input_password");
+		
 		User loggedOnUser = authenticationService.authenticateUser(email, password);
 		HttpSession session = request.getSession();
 		System.out.println("In the controller");
-		if(loggedOnUser!=null){
+		if(null != loggedOnUser){
 			System.out.println("user found!");
 			session.setAttribute("user", loggedOnUser);
-			mv.setViewName("index");
-			return mv;
+			return "{\"result\":\"Authenticated\", \"TOKEN\":\""+ session.getId() +"\" }";
+		}
+		else{
+			response.sendError(HttpStatus.NON_AUTHORITATIVE_INFORMATION.value());
 		}
 		return null;	
+	}
+	
+	@RequestMapping(value="/authenticated.htm/TOKEN/{TOKEN}",method= RequestMethod.GET)
+	public String authenticated(@PathVariable(value = "TOKEN") String jsessionId,HttpSession session, HttpServletRequest request, HttpServletResponse response){
+		/*
+		System.out.println("YOLO");
+		System.out.println("Current Session = " + session.getId());
+		System.out.println("Passed on Session = " + jsessionId);
+		*/
+		if(session.getId().equals(jsessionId)){
+			return "index";
+		}
+		else
+			return "login";
 	}
 	
 }

@@ -1,8 +1,10 @@
 package com.wechat.pojo;
 
 import java.io.Serializable;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -40,7 +42,18 @@ public class User extends Person implements Serializable{
 		this.friendList = new ArrayList<User>();
 		this.joinedChatRooms = new ArrayList<Chatroom>();
 	}
-	
+
+	public User(String firstName, String lastName, String role, String birthDate,String username, String password, String email, String queueName) throws ParseException{
+		super(firstName, lastName, role, birthDate);
+		this.username = username;
+		this.password = password;
+		this.email = email;
+		this.queueName = queueName;
+		this.hostId = new ArrayList<User>();
+		this.friendList = new ArrayList<User>();
+		this.joinedChatRooms = new ArrayList<Chatroom>();
+	}
+
 	public String getUsername() {
 		return username;
 	}

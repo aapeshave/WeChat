@@ -1,6 +1,10 @@
 package com.wechat.pojo;
 
 import java.io.Serializable;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -22,11 +26,21 @@ public class Person implements Serializable {
 	private String firstName;
 	private String lastName;
 	private String role;
+	private Date birthDate;
 	
 	public Person() {
 		
 	}
 	
+	public Person(String firstName, String lastName, String role, String birthDate) throws ParseException {
+		super();
+		DateFormat format1 = new SimpleDateFormat("mm/dd/yyyy");
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.role = role;
+		this.birthDate = format1.parse(birthDate);
+	}
+
 	public long getPersonId() {
 		return personId;
 	}
@@ -50,5 +64,13 @@ public class Person implements Serializable {
 	}
 	public void setRole(String role) {
 		this.role = role;
-	}	
+	}
+
+	public Date getBirthDate() {
+		return birthDate;
+	}
+
+	public void setBirthDate(Date birthDate) {
+		this.birthDate = birthDate;
+	}
 }

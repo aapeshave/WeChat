@@ -1,0 +1,22 @@
+@CHARSET "UTF-8";
+
+body {
+  padding-top: 40px;
+  padding-bottom: 40px;
+  background-color: #eee;
+}
+
+.form-signup {
+  padding: 15px;
+  margin: 0 auto;
+}
+
+.form-signup .form-signup-heading,
+.form-signup .checkbox .signup-form{
+  margin-bottom: 10px;
+}
+
+.form-signup .form-control:focus {
+  z-index: 2;
+}
+

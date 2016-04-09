@@ -1,5 +1,8 @@
 package com.wechat.service;
 
+import java.text.ParseException;
+import java.util.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,7 +22,7 @@ public class UserService {
 			return null;
 	}	
 	
-	public User adduser(String firstName, String lastName, String role, String username, String password, String email,long personId){
-		return userDAO.createNewUser(firstName, lastName, role, username, password, email, personId);
+	public User adduser(String firstName, String lastName, String role, String username, String password, String email, String birthDate) throws ParseException{
+		return userDAO.createNewUser(firstName, lastName, role, username, password, email, birthDate);
 	}
 }

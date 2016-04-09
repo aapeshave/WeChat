@@ -41,5 +41,6 @@
 	<context:component-scan base-package="com.wechat.pojo" />
 	<context:component-scan base-package="com.wechat.service" />
 	<context:component-scan base-package="com.wechat.session" />
+	<context:component-scan base-package="com.wechat.validators" />
 	
 </beans:beans>

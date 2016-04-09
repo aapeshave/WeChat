@@ -7,8 +7,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
@@ -35,8 +34,8 @@
 		<form class="form-signin" id="login-form" method="post"
 			action="loginMe.htm">
 			<h2 class="form-signin-heading">Please sign in</h2>
-			<label for="input_Email" class="sr-only">Email address</label> <input
-				name="input_email" type="email" id="inputEmail" class="form-control"
+			<label for="input_Email" class="sr-only">Email address</label>
+			<input name="input_email" type="email" id="inputEmail" class="form-control"
 				placeholder="Email address" required autofocus> <label
 				for="input_Password" class="sr-only">Password</label> <input
 				name="input_password" type="password" id="inputPassword"
@@ -52,9 +51,10 @@
 				<p id="errorx"></p>
 			</div>
 			<!--div to instert error message for user-->
+			<a href="signup.htm" role="button"
+				class="btn btn-lg btn-danger btn-block form-signin">Sign up</a>
 		</form>
-		<button class="btn btn-lg btn-danger btn-block" type="submit">Sign
-			up</button>
+
 	</div>
 	<!-- /container -->
 

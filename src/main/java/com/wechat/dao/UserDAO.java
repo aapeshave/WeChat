@@ -1,5 +1,6 @@
 package com.wechat.dao;
 
+import java.text.ParseException;
 import java.util.List;
 
 import org.hibernate.HibernateException;
@@ -36,16 +37,10 @@ public class UserDAO extends BaseDAO{
 		return u;
 	}
 	
-	public User createNewUser(String firstName, String lastName, String role, String username, String password, String email,long personId){
-		User newUser = new User();
-		newUser.setEmail(email);
-		newUser.setFirstName(firstName);
-		newUser.setLastName(lastName);
-		newUser.setPassword(password);
-		newUser.setPersonId(personId);
-		newUser.setQueueName(username+firstName);
-		newUser.setUsername(username);
-		newUser.setPassword(password);
+	public User createNewUser(String firstName, String lastName, String role, String username, String password, String email, String birthDate) throws ParseException{
+		
+		String queueName  =username.concat(firstName);
+		User newUser = new User(firstName, lastName, role, birthDate, username, password, email, queueName);
 		
 		//Session session = new Configuration().configure().buildSessionFactory().openSession();
 		Session session  =getSession();
