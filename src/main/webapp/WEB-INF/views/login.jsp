@@ -48,7 +48,16 @@
 			<button class="btn btn-lg btn-primary btn-block" type="submit">Sign
 				in</button>
 			<div>
-				<p id="errorx"></p>
+				<p id="errorx">
+					<c:choose>
+                		<c:when test="${! empty sessionScope.loginError}">
+                			Username and Password Do Not Match!
+                    	</c:when>
+                    	<c:otherwise>
+                
+                    	</c:otherwise>
+            		</c:choose>
+            	</p>
 			</div>
 			<!--div to instert error message for user-->
 			<a href="signup.htm" role="button"

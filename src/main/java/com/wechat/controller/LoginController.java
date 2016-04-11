@@ -52,36 +52,52 @@ private AuthenticationService authenticationService;
 	}
 	
 	@RequestMapping(value="/loginMe.htm",method = RequestMethod.POST)
-	public @ResponseBody String loginUser(HttpServletRequest request, HttpServletResponse response) throws IOException{
+	public ModelAndView loginUser(HttpServletRequest request, HttpServletResponse response) throws IOException{
+		ModelAndView mav = new ModelAndView();
 		String email = request.getParameter("input_email");
 		String password = request.getParameter("input_password");
 		
 		User loggedOnUser = authenticationService.authenticateUser(email, password);
 		HttpSession session = request.getSession();
-		System.out.println("In the controller");
+		//System.out.println("In the controller");
 		if(null != loggedOnUser){
+			/*
 			System.out.println("user found!");
 			session.setAttribute("user", loggedOnUser);
 			return "{\"result\":\"Authenticated\", \"TOKEN\":\""+ session.getId() +"\" }";
+			*/
+			session.setAttribute("user", loggedOnUser);
+			mav.setViewName("index");
+			return mav;
 		}
 		else{
-			response.sendError(HttpStatus.NON_AUTHORITATIVE_INFORMATION.value());
+			session.setAttribute("loginError", "Invalid Credentails");
+			mav.setViewName("login");
+			return mav;
 		}
-		return null;	
+		//return null;	
 	}
 	
 	@RequestMapping(value="/authenticated.htm/TOKEN/{TOKEN}",method= RequestMethod.GET)
-	public String authenticated(@PathVariable(value = "TOKEN") String jsessionId,HttpSession session, HttpServletRequest request, HttpServletResponse response){
+	public String authenticated(@PathVariable(value = "TOKEN") String jsessionId,HttpSession session, HttpServletRequest request, HttpServletResponse response) throws IOException{
 		/*
 		System.out.println("YOLO");
 		System.out.println("Current Session = " + session.getId());
 		System.out.println("Passed on Session = " + jsessionId);
 		*/
 		if(session.getId().equals(jsessionId)){
-			return "index";
+			//response.sendRedirect("index.htm");
+			//return null;
+			return "forward:/index.htm";
 		}
 		else
 			return "login";
+	}
+	
+	@RequestMapping(value = "/index.htm", method = RequestMethod.GET)
+	public String indexPage(HttpSession session, HttpServletRequest request, HttpServletResponse response){
+		
+		return "index";
 	}
 	
 }

@@ -6,7 +6,7 @@ $('document').ready(function(){
 	'use strict';
 	
 	//alert("DOM Loaded");
-	
+	/*
 	var login_form = $('#login-form').submit(function(ev) {
 		ev.preventDefault();
 
@@ -37,5 +37,5 @@ $('document').ready(function(){
 		}
 		return false;
 	});
-	
+	*/
 });
