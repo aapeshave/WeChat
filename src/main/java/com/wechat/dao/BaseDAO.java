@@ -22,8 +22,8 @@ public abstract class BaseDAO {
     @SuppressWarnings("deprecation")
 	private static final SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
     
-    /*
-     * 
+    
+    /*  
     @Autowired
 	private SessionHandler sessionHandler;
 	protected Session getSession(){
@@ -33,8 +33,8 @@ public abstract class BaseDAO {
 	protected void returnSession(Session session){
 		sessionHandler.returnSession(session);
 	}
-	
 	*/
+
     
     public static Session getSession()
     {
@@ -47,7 +47,7 @@ public abstract class BaseDAO {
         }
         return session;
     }
-
+	
     protected void begin() {
         getSession().beginTransaction();
     }

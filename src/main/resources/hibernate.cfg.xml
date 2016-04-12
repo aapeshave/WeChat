@@ -3,24 +3,32 @@
 		"-//Hibernate/Hibernate Configuration DTD 3.0//EN"
 		"http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
-    <session-factory name="sessionFactory">
-        <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
-        <property name="hibernate.connection.password">admin</property>
-        <property name="hibernate.connection.url">jdbc:mysql://127.0.0.1:3306/temp_schema</property>
-        <property name="hibernate.connection.username">root</property>
-        <property name="hibernate.default_schema">temp_schema</property>
-        <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
-    	<property name="hbm2ddl.auto">update</property>
+	<session-factory name="sessionFactory">
+		<property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+		  
+			<property name="hibernate.connection.username">root</property>
+			<property name="hibernate.connection.password">admin</property>
 		
+		<property name="hibernate.connection.url">jdbc:mysql://127.0.0.1:3306/temp_schema</property>
+		
+		<property name="hibernate.default_schema">temp_schema</property>
+		<property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+		<property name="hbm2ddl.auto">update</property>
+
+		<property name="hibernate.c3p0.min_size">5</property>
+		<property name="hibernate.c3p0.max_size">20</property>
+		<property name="hibernate.c3p0.timeout">3000</property>
+		<property name="hibernate.c3p0.max_statements">50</property>
+		<property name="hibernate.c3p0.idle_test_period">300</property>
+
 		<!-- Mapping Classes -->
-		<mapping class="com.wechat.pojo.Person"/>    
-		<mapping class="com.wechat.pojo.Admin"/>
-		<mapping class="com.wechat.pojo.Moderator"/>
-    	<mapping class="com.wechat.pojo.User"/>
-    	<mapping class="com.wechat.pojo.ChatMessage"/>
-    	<mapping class="com.wechat.pojo.Chatroom"/>
-    	<mapping class="com.wechat.pojo.ChatSession"/>
-    	 
-    </session-factory>
-    
+		<mapping class="com.wechat.pojo.Person" />
+		<mapping class="com.wechat.pojo.Admin" />
+		<mapping class="com.wechat.pojo.Moderator" />
+		<mapping class="com.wechat.pojo.User" />
+		<mapping class="com.wechat.pojo.ChatMessage" />
+		<mapping class="com.wechat.pojo.Chatroom" />
+		<mapping class="com.wechat.pojo.ChatSession" />
+
+	</session-factory>
 </hibernate-configuration>

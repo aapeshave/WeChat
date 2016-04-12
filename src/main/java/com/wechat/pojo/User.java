@@ -26,6 +26,8 @@ public class User extends Person implements Serializable{
 	private String password;
 	private String email;
 	private String queueName;
+	private Date isCreatedOn;
+	private Boolean isActive;
 	
 	@ManyToMany
 	private Collection<User> hostId = new ArrayList<User>();
@@ -49,6 +51,8 @@ public class User extends Person implements Serializable{
 		this.password = password;
 		this.email = email;
 		this.queueName = queueName;
+		this.isActive = true;
+		this.isCreatedOn = new Date();
 		this.hostId = new ArrayList<User>();
 		this.friendList = new ArrayList<User>();
 		this.joinedChatRooms = new ArrayList<Chatroom>();

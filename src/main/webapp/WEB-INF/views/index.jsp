@@ -41,39 +41,78 @@
 <title>WeChat Application</title>
 </head>
 <body>
-	<!--  
-	<nav class="navbar navbar-inverse navbar-fixed-top">
-      <div class="container-fluid">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="#">WeChat</a>
-        </div>
-        <div id="navbar" class="navbar-collapse collapse">
-          <ul class="nav navbar-nav navbar-right">
-            <li><a href="#">Settings</a></li>
-            <li><a href="#">Profile</a></li>
-            <li><a href="#">Help</a></li>
-          </ul>
-          <form class="navbar-form navbar-right">
-            <input type="text" class="form-control" placeholder="Search...">
-          </form>
-        </div>
-      </div>
-    </nav><!-- End of NAVIGATION BAR -->
 
-    <div class="container-fluid">
-    	<div class="row">
-    		<c:choose>
-                <c:when test="${! empty sessionScope.user}"/>
-                    <c:redirect url="login.htm"/>
-            </c:choose>
-    		<h3>Welcome ${sessionScope.user.firstName} ${sessionScope.user.lastName}</h3>
-    	</div>
-	</div>	
+	<nav class="navbar navbar-inverse navbar-fixed-top">
+	<div class="container-fluid">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed"
+				data-toggle="collapse" data-target="#navbar" aria-expanded="false"
+				aria-controls="navbar">
+				<span class="sr-only">Toggle navigation</span> <span
+					class="icon-bar"></span> <span class="icon-bar"></span> <span
+					class="icon-bar"></span>
+			</button>
+			<a class="navbar-brand" href="#">WeChat</a>
+		</div>
+		<div id="navbar" class="navbar-collapse collapse">
+			<ul class="nav navbar-nav navbar-right">
+				<li><a href="#">Settings</a></li>
+				<li><a href="#">Profile</a></li>
+				<li><a href="#">Help</a></li>
+				<li><a href="#" data-toggle="modal"
+					data-target="#modal-add-friends">Add Friends</a></li>
+			</ul>
+			<form class="navbar-form navbar-right">
+				<input type="text" class="form-control" placeholder="Search...">
+			</form>
+		</div>
+	</div>
+	</nav>
+	<!-- End of NAVIGATION BAR -->
+
+	<div class="container">
+		<div class="row">
+			<h3>Welcome ${sessionScope.user.firstName}
+				${sessionScope.user.lastName}</h3>
+		</div>
+	</div>
+
+
+	<!-- Panels Begin here -->
+	<div class="container">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h3 class="panel-title">Add New Friends</h3>
+			</div>
+			<div class="panel-body">Panel content will appear here!</div>
+		</div>
+	</div>
+
+	<!-- Modals Begin Here -->
+
+	<!-- Add Freinds Modal -->
+	<div class="modal fade" id="modal-add-friends" tabindex="-1"
+		role="dialog" aria-labelledby="myModalLabel">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4>Add Friends</h4>
+				</div>
+				<div class="modal-body">
+					<form name="form-add-friends" method="post"
+						action="search-friends.htm" class="form-inline">
+						<div class="form-group col-sm-12 col-md-12 col-lg-12">
+							<input type="text" class="form-control" id="search-bar"
+								placeholder="Enter Username" onKeyUp="ajaxFunction(this.value)">
+							<button class="btn btn-default" type="submit">Search</button>
+						</div>
+						<div class="form-group"></div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--End of Log-in Modal-->
+
 </body>
 </html>

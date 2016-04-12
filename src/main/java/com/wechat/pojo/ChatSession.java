@@ -25,6 +25,10 @@ public class ChatSession {
 	private Timestamp timeStamp;
 	private Boolean isArchived;
 	
+	public ChatSession() {
+		this.isArchived  = Boolean.FALSE;
+	}
+	
 	@OneToMany(mappedBy="chatSession", fetch = FetchType.EAGER)
 	private Collection<ChatMessage> chatHistory = new ArrayList<ChatMessage>();
 	
