@@ -23,7 +23,7 @@ public abstract class BaseDAO {
 	private static final SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
     
     
-    /*  
+      
     @Autowired
 	private SessionHandler sessionHandler;
 	protected Session getSession(){
@@ -33,9 +33,9 @@ public abstract class BaseDAO {
 	protected void returnSession(Session session){
 		sessionHandler.returnSession(session);
 	}
-	*/
+	
 
-    
+    /*
     public static Session getSession()
     {
         Session session = (Session) BaseDAO.sessionThread.get();
@@ -47,7 +47,7 @@ public abstract class BaseDAO {
         }
         return session;
     }
-	
+	*/
     protected void begin() {
         getSession().beginTransaction();
     }
@@ -71,7 +71,7 @@ public abstract class BaseDAO {
     }
 
     public static void close() {
-        getSession().close();
-        BaseDAO.sessionThread.set(null);
+        //getSession().close();
+        //BaseDAO.sessionThread.set(null);
     }
 }

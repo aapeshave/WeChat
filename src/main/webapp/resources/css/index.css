@@ -13,6 +13,15 @@ body {
  * Global add-ons
  */
 
+/*Own CSS*/
+/*
+div #panel-add-friends{
+	display: none;
+}
+
+*/
+/*Own CSS End here*/
+
 .sub-header {
   padding-bottom: 10px;
   border-bottom: 1px solid #eee;
@@ -24,6 +33,7 @@ body {
  */
 .navbar-fixed-top {
   border: 0;
+  background-color: firebrick;
 }
 
 /*

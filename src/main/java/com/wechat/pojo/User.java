@@ -12,6 +12,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
@@ -29,20 +30,16 @@ public class User extends Person implements Serializable{
 	private Date isCreatedOn;
 	private Boolean isActive;
 	
-	@ManyToMany
-	private Collection<User> hostId = new ArrayList<User>();
-	
-	@ManyToMany(mappedBy="hostId")
-	private Collection<User> friendList = new ArrayList<User>();
+	@ManyToMany(mappedBy="userList")
+	private Collection<Friend> friendList = new ArrayList<Friend>();
 	
 	@ManyToMany(cascade = CascadeType.ALL)
 	private Collection<Chatroom> joinedChatRooms = new ArrayList<Chatroom>();
 	
 	public User() {
 		super();
-		this.hostId = new ArrayList<User>();
-		this.friendList = new ArrayList<User>();
 		this.joinedChatRooms = new ArrayList<Chatroom>();
+		this.friendList = new ArrayList<Friend>();
 	}
 
 	public User(String firstName, String lastName, String role, String birthDate,String username, String password, String email, String queueName) throws ParseException{
@@ -53,8 +50,7 @@ public class User extends Person implements Serializable{
 		this.queueName = queueName;
 		this.isActive = true;
 		this.isCreatedOn = new Date();
-		this.hostId = new ArrayList<User>();
-		this.friendList = new ArrayList<User>();
+		this.friendList = new ArrayList<Friend>();
 		this.joinedChatRooms = new ArrayList<Chatroom>();
 	}
 
@@ -83,26 +79,35 @@ public class User extends Person implements Serializable{
 	public void setQueueName(String queueName) {
 		this.queueName = queueName;
 	}
-	public Collection<User> getHostId() {
-		return hostId;
-	}
-	public void setHostId(Collection<User> hostId) {
-		this.hostId = hostId;
-	}
-	public Collection<User> getFriendList() {
-		return friendList;
-	}
-	public void setFriendList(Collection<User> friendList) {
-		this.friendList = friendList;
-	}
-	
-	
 	public Collection<Chatroom> getJoinedChatRooms() {
 		return joinedChatRooms;
 	}
 
 	public void setJoinedChatRooms(Collection<Chatroom> joinedChatRooms) {
 		this.joinedChatRooms = joinedChatRooms;
+	}
+	public Date getIsCreatedOn() {
+		return isCreatedOn;
+	}
+
+	public void setIsCreatedOn(Date isCreatedOn) {
+		this.isCreatedOn = isCreatedOn;
+	}
+
+	public Boolean getIsActive() {
+		return isActive;
+	}
+
+	public void setIsActive(Boolean isActive) {
+		this.isActive = isActive;
+	}
+
+	public Collection<Friend> getFriendList() {
+		return friendList;
+	}
+
+	public void setFriendList(Collection<Friend> friendList) {
+		this.friendList = friendList;
 	}
 
 	@Override

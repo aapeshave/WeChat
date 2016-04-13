@@ -1,6 +1,7 @@
 package com.wechat.dao;
 
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.HibernateException;
@@ -35,6 +36,18 @@ public class UserDAO extends BaseDAO{
 		//returnSession(session);
 		close();
 		return u;
+	}
+	
+	public ArrayList<User> getUsernameSearch(String username){
+		ArrayList<User> searchResults = new ArrayList<User>();
+		Session session  =getSession();
+		username ="%" + username + "%";
+		Query q = session.createQuery("from User u where u.username like :username");
+		q.setString("username", username);
+		
+		searchResults = (ArrayList<User>) q.list();
+		close();
+		return searchResults;
 	}
 	
 	public User createNewUser(String firstName, String lastName, String role, String username, String password, String email, String birthDate) throws ParseException{

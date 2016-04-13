@@ -59,8 +59,8 @@
 				<li><a href="#">Settings</a></li>
 				<li><a href="#">Profile</a></li>
 				<li><a href="#">Help</a></li>
-				<li><a href="#" data-toggle="modal"
-					data-target="#modal-add-friends">Add Friends</a></li>
+				<li><a id="link-search-friend" data-toggle="collapse" href="#panel-add-friends" >Add Friends</a></li>
+				<li><a href="logout.htm">Log-Out</a></li>
 			</ul>
 			<form class="navbar-form navbar-right">
 				<input type="text" class="form-control" placeholder="Search...">
@@ -70,24 +70,70 @@
 	</nav>
 	<!-- End of NAVIGATION BAR -->
 
-	<div class="container">
-		<div class="row">
-			<h3>Welcome ${sessionScope.user.firstName}
-				${sessionScope.user.lastName}</h3>
-		</div>
-	</div>
 
 
 	<!-- Panels Begin here -->
-	<div class="container">
-		<div class="panel panel-default">
-			<div class="panel-heading">
-				<h3 class="panel-title">Add New Friends</h3>
+
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-sm-3 col-md-2 sidebar">
+				<ul class="nav nav-sidebar">
+					<li class="active"><a href="#">Overview <span
+							class="sr-only">(current)</span></a></li>
+					<li><a href="#">Reports</a></li>
+					<li><a href="#">Analytics</a></li>
+					<li><a href="#">Export</a></li>
+				</ul>
+				<ul class="nav nav-sidebar">
+					<li><a href="">Nav item</a></li>
+					<li><a href="">Nav item again</a></li>
+					<li><a href="">One more nav</a></li>
+					<li><a href="">Another nav item</a></li>
+					<li><a href="">More navigation</a></li>
+				</ul>
+				<ul class="nav nav-sidebar">
+					<li><a href="">Nav item again</a></li>
+					<li><a href="">One more nav</a></li>
+					<li><a href="">Another nav item</a></li>
+				</ul>
 			</div>
-			<div class="panel-body">Panel content will appear here!</div>
+			<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+
+				<div class="row">
+					<h3 class="page-header">Welcome ${sessionScope.user.firstName}
+						${sessionScope.user.lastName}</h3>
+				</div>
+				<div class="row">
+					<div class="collapse"  id="panel-add-friends">
+						<div class="panel-heading">
+							<h3 class="panel-title">Add New Friends</h3>
+						</div>
+						<div class="panel-body">
+							<div id="anything-search" class="tab-pane fade in active">
+								<form>
+									<div class="col-sm-9 col-xs-9 col-md-9">
+										<input type="text" class="form-control" id="search-bar"
+											placeholder="Enter username"
+											onKeyUp="ajaxFunction(this.value)">
+
+									</div>
+									<div class="col-sm-3 col-xs-3 col-md-3">
+										<button class="btn btn-default" type="submit">Search</button>
+									</div>
+									<div id="result-search-add-freinds" class="col-sm-9 col-xs-9 col-md-9"></div>
+								</form>
+							</div>
+							<!-- End of first search tab-->
+						</div>
+					</div>
+				</div>
+				<div class="row placeholders"></div>
+
+				<h2 class="sub-header">Section title</h2>
+
+			</div>
 		</div>
 	</div>
-
 	<!-- Modals Begin Here -->
 
 	<!-- Add Freinds Modal -->

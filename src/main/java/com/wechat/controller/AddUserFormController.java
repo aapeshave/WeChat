@@ -56,7 +56,7 @@ public class AddUserFormController {
     	}
 		//Entered Information is Error Free
 		try{
-			String BirthDate = new SimpleDateFormat("dd/mm/yyyy").format((user.getBirthDate()));
+			String BirthDate = new SimpleDateFormat("mm/dd/yyyy").format((user.getBirthDate()));
 			User newUser = userService.adduser(user.getFirstName(), user.getLastName(), "User", user.getUsername(), user.getPassword(), user.getEmail(), BirthDate);
 			HttpSession webSession = request.getSession();
 			webSession.setAttribute("user", newUser);
