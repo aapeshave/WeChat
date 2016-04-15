@@ -103,6 +103,7 @@
 					<h3 class="page-header">Welcome ${sessionScope.user.firstName}
 						${sessionScope.user.lastName}</h3>
 				</div>
+				<!-- Add New Friends Collapse -->
 				<div class="row">
 					<div class="collapse"  id="panel-add-friends">
 						<div class="panel-heading">
@@ -114,19 +115,18 @@
 									<div class="col-sm-9 col-xs-9 col-md-9">
 										<input type="text" class="form-control" id="search-bar"
 											placeholder="Enter username"
-											onKeyUp="ajaxFunction(this.value)">
-
+											onKeyUp="ajaxFunction(this.value)">	
 									</div>
 									<div class="col-sm-3 col-xs-3 col-md-3">
 										<button class="btn btn-default" type="submit">Search</button>
 									</div>
-									<div id="result-search-add-freinds" class="col-sm-9 col-xs-9 col-md-9"></div>
+									<div id="result-search-add-freinds" class="col-sm-9 col-xs-9 col-md-9 list-group"></div>
 								</form>
 							</div>
 							<!-- End of first search tab-->
 						</div>
 					</div>
-				</div>
+				</div><!-- End of Add New Friends Collapse -->
 				<div class="row placeholders"></div>
 
 				<h2 class="sub-header">Section title</h2>

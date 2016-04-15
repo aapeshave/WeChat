@@ -43,8 +43,9 @@
 	
 	<beans:bean id="sessionFactory"
 		class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
-		<beans:property name="dataSource" ref="dataSource" />
+		<!-- <beans:property name="dataSource" ref="dataSource" />-->
 		<beans:property name="configLocation" value="classpath:hibernate.cfg.xml" />
+		
 	</beans:bean>
 	
 	<beans:bean id="sessionHandler" class="com.wechat.session.SessionHandler" scope="singleton" />

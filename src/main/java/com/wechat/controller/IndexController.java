@@ -15,6 +15,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.wechat.service.SearchServices;
 
 @Controller
@@ -28,12 +30,24 @@ public class IndexController {
 	@RequestMapping(method= RequestMethod.GET,value="/addFriendSearchUsername.htm")
 	public void addFriendSearch(HttpSession session, HttpServletRequest request, HttpServletResponse response) throws IOException
 	{
-		ArrayList<String> searchResults  =searchService.searchUserList(request.getParameter("username"));
-		if(searchResults!=null){
+		String username = request.getParameter("username");
+		if(username.length()>3){
+			ArrayList<String> searchResults  =searchService.searchUserList(username);
+			if(searchResults!=null){
+				Gson  gson = new GsonBuilder().serializeNulls().create();
+				String jsonResults = gson.toJson(searchResults, searchResults.getClass());
+		        response.getWriter().write(jsonResults);
+			}
+			else{
+				response.sendError(404,"No Matches Found");
+			}	
+		}
 			
-		}
-		else{
-			response.sendError(404,"No Matches Found");
-		}
+	}
+	
+	@RequestMapping(method= RequestMethod.GET,value="/showProfile.htm")
+	public void showProfile(HttpSession session, HttpServletRequest request, HttpServletResponse response) throws IOException
+	{
+		System.out.println("Showing Profile");
 	}
 }
