@@ -6,6 +6,7 @@ import java.util.Collection;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -24,7 +25,7 @@ public class Friend implements Serializable {
 	@Column(name="friendID")
 	private long friendId;
 	
-	@ManyToMany
+	@ManyToMany(fetch=FetchType.EAGER)
 	private Collection<User> userList  = new ArrayList<User>();
 	
 	private Boolean isAccepted;
@@ -52,6 +53,14 @@ public class Friend implements Serializable {
 	}
 	public void setStatus(String status) {
 		this.status = status;
+	}
+
+	public Collection<User> getUserList() {
+		return userList;
+	}
+
+	public void setUserList(Collection<User> userList) {
+		this.userList = userList;
 	}
 	
 }

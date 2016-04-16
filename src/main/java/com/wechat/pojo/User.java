@@ -9,6 +9,7 @@ import java.util.Date;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
@@ -30,7 +31,7 @@ public class User extends Person implements Serializable{
 	private Date isCreatedOn;
 	private Boolean isActive;
 	
-	@ManyToMany(mappedBy="userList")
+	@ManyToMany(mappedBy="userList",fetch=FetchType.EAGER)
 	private Collection<Friend> friendList = new ArrayList<Friend>();
 	
 	@ManyToMany(cascade = CascadeType.ALL)

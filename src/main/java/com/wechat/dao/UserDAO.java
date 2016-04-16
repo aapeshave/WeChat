@@ -34,7 +34,8 @@ public class UserDAO extends BaseDAO{
 		User u =(User) q.uniqueResult();
 		//System.out.println(u);
 		//returnSession(session);
-		close();
+		returnSession(session);
+		
 		return u;
 	}
 	
@@ -46,7 +47,8 @@ public class UserDAO extends BaseDAO{
 		q.setString("username", username);
 		
 		searchResults = (ArrayList<User>) q.list();
-		close();
+		returnSession(session);
+		
 		return searchResults;
 	}
 	
@@ -60,7 +62,7 @@ public class UserDAO extends BaseDAO{
 		Transaction tr = session.beginTransaction();
 		session.save(newUser);
 		tr.commit();
-		close();
+		returnSession(session);
 		return newUser;
 	}
 	
@@ -71,6 +73,7 @@ public class UserDAO extends BaseDAO{
 		searchQuery.setString("password", password);
 		try{
 			User searchUser = (User) searchQuery.uniqueResult();
+			returnSession(session);
 			if(searchUser!=null)
 				return searchUser;
 		}
@@ -79,4 +82,5 @@ public class UserDAO extends BaseDAO{
 		}
 		return null;
 	}
+	
 }

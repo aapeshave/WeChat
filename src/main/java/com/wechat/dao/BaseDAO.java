@@ -19,8 +19,8 @@ public abstract class BaseDAO {
 	
 	private static final Logger log = Logger.getAnonymousLogger();
 	private static final ThreadLocal sessionThread = new ThreadLocal();
-    @SuppressWarnings("deprecation")
-	private static final SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+    //@SuppressWarnings("deprecation")
+	//private static final SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
     
     
       
@@ -48,26 +48,26 @@ public abstract class BaseDAO {
         return session;
     }
 	*/
-    protected void begin() {
-        getSession().beginTransaction();
+    protected void begin(Session session) {
+        session.beginTransaction();
     }
 
-    protected void commit() {
-        getSession().getTransaction().commit();
+    protected void commit(Session session) {
+        session.getTransaction().commit();
     }
 
-    protected void rollback() {
+    protected void rollback(Session session) {
         try {
-            getSession().getTransaction().rollback();
+        	session.getTransaction().rollback();
         } catch (HibernateException e) {
             log.log(Level.WARNING, "Cannot rollback", e);
         }
         try {
-            getSession().close();
+        	session.close();
         } catch (HibernateException e) {
             log.log(Level.WARNING, "Cannot close", e);
         }
-        BaseDAO.sessionThread.set(null);
+        //BaseDAO.sessionThread.set(null);
     }
 
     public static void close() {
