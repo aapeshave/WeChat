@@ -59,7 +59,8 @@
 				<li><a href="#">Settings</a></li>
 				<li><a href="#">Profile</a></li>
 				<li><a href="#">Help</a></li>
-				<li><a id="link-search-friend" data-toggle="collapse" href="#panel-add-friends" >Add Friends</a></li>
+				<li><a id="link-search-friend" data-toggle="collapse"
+					href="#panel-add-friends">Add Friends</a></li>
 				<li><a href="logout.htm">Log-Out</a></li>
 			</ul>
 			<form class="navbar-form navbar-right">
@@ -105,7 +106,7 @@
 				</div>
 				<!-- Add New Friends Collapse -->
 				<div class="row">
-					<div class="collapse"  id="panel-add-friends">
+					<div class="collapse" id="panel-add-friends">
 						<div class="panel-heading">
 							<h3 class="panel-title">Add New Friends</h3>
 						</div>
@@ -115,21 +116,34 @@
 									<div class="col-sm-9 col-xs-9 col-md-9">
 										<input type="text" class="form-control" id="search-bar"
 											placeholder="Enter username"
-											onKeyUp="ajaxFunction(this.value)">	
+											onKeyUp="ajaxFunction(this.value)">
 									</div>
 									<div class="col-sm-3 col-xs-3 col-md-3">
 										<button class="btn btn-default" type="submit">Search</button>
 									</div>
-									<div id="result-search-add-freinds" class="col-sm-9 col-xs-9 col-md-9 list-group"></div>
+									<div id="result-search-add-freinds"
+										class="col-sm-9 col-xs-9 col-md-9 list-group"></div>
 								</form>
 							</div>
-							<!-- End of first search tab-->
 						</div>
 					</div>
-				</div><!-- End of Add New Friends Collapse -->
+				</div>
+				<div class="row error-new-friend">
+					<!-- Div for alert of friend -->
+					<div class="alert alert-warning alert-dismissible fade in"
+						role="alert">
+						<button type="button" class="close" data-dismiss="alert"
+							aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+						<p id="error-text-new-friend">Error Message</p>
+					</div>
+				</div>
+				<!-- End of Add New Friends Collapse -->
 				<div class="row placeholders"></div>
 
 				<h2 class="sub-header">Section title</h2>
+
 
 			</div>
 		</div>

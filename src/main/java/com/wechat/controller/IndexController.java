@@ -1,6 +1,7 @@
 package com.wechat.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
@@ -65,4 +66,25 @@ public class IndexController {
 		System.out.println("Showing Profile");
 		
 	}
+	
+	@RequestMapping(method=RequestMethod.POST,value="/addNewFreind.htm")
+	public void newFreindRequest(HttpSession session, HttpServletRequest request, HttpServletResponse response) throws IOException
+	{
+		String friendUserName = request.getParameter("friendUserName");
+		User currentUser = (User) session.getAttribute("user");
+		System.out.println("In the controller");
+		System.out.println("Friend Username: "+friendUserName+" & current User: "+currentUser.getUsername());
+		System.out.println("In the if loop");
+		Boolean someValue = userService.addFriend(currentUser, friendUserName);
+		if(someValue==Boolean.TRUE){
+			response.getWriter().write("New Friend Added");
+			System.out.println("Writing new Friend Added to Response");
+		}
+			
+		else{
+			response.getWriter().write("Can not add new friend");
+			System.out.println("Writing new Friend can not be Added to Response");
+		}
+	}
+	
 }

@@ -31,10 +31,11 @@ public class FriendDAO extends BaseDAO {
 			begin(session);
 			session.save(newFriend);
 			commit(session);
+			System.out.println("New Friend Added");
 			
 			try{
-				System.out.println("New Friend Added");
 				//Save newFriend to currentuser
+				
 				currentUser.getFriendList().add(newFriend);
 				User u = (User) session.load(User.class,currentUser.getPersonId());
 				u.getFriendList().add(newFriend);

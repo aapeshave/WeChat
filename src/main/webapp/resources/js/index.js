@@ -55,4 +55,30 @@ $(document).on('click', '.send-request-button', function () {
 	var $prevSibling = $(this).prev(); 
 	var $username  =$prevSibling.text();
 	alert($username);
+	/*
+	var requestAddFriend = $.ajax({
+		  url: "addNewFreind.htm",
+		  method: "POST",
+		  data: {friendUserName:$username},
+		  dataType: "json"
+		});
+	
+	requestAddFriend.done(function(data) {
+		$("#error-text-new-friend").css("display", "block");
+		$('#error-text-new-friend').html(data);
+	});
+	*/
+	
+	$.ajax({
+        type: "POST",
+        url: "addNewFreind.htm?friendUserName="+$username,
+        success: function (dataServer) {
+        	$('#error-text-new-friend').html(dataServer);
+    	},
+    	error: function(err){
+    		$('#error-text-new-friend').html(err);
+    	}
+    });
+   
 });
+	
