@@ -3,6 +3,7 @@ package com.wechat.controller;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Collection;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -61,8 +62,9 @@ public class IndexController {
 	@RequestMapping(method= RequestMethod.GET,value="/showProfile.htm")
 	public void showProfile(HttpSession session, HttpServletRequest request, HttpServletResponse response) throws IOException
 	{
-		Boolean someValue = userService.addFriend(userService.getUserByUsername("aapeshave"), "sanket007");
-		System.out.println(someValue);
+		//Boolean someValue = userService.addFriend(userService.getUserByUsername("aapeshave"), "sanket007");
+		//System.out.println(someValue);
+		System.out.println(userService.getFriendList("sanket007"));
 		System.out.println("Showing Profile");
 		
 	}
@@ -72,19 +74,28 @@ public class IndexController {
 	{
 		String friendUserName = request.getParameter("friendUserName");
 		User currentUser = (User) session.getAttribute("user");
-		System.out.println("In the controller");
-		System.out.println("Friend Username: "+friendUserName+" & current User: "+currentUser.getUsername());
-		System.out.println("In the if loop");
 		Boolean someValue = userService.addFriend(currentUser, friendUserName);
 		if(someValue==Boolean.TRUE){
-			response.getWriter().write("New Friend Added");
-			System.out.println("Writing new Friend Added to Response");
+			logger.info("New Friend for user:"+currentUser.getUsername()+" is added!");
+			response.getWriter().write("New Friend Added"); 
+			//System.out.println("Writing new Friend Added to Response");
 		}
 			
 		else{
 			response.getWriter().write("Can not add new friend");
-			System.out.println("Writing new Friend can not be Added to Response");
+			//System.out.println("Writing new Friend can not be Added to Response");
 		}
+	}
+	
+	@RequestMapping(method=RequestMethod.GET,value="/showFriendList.htm")
+	public void showFriendListCollectoin(HttpSession session, HttpServletRequest request, HttpServletResponse response) throws IOException
+	{
+		User currentUser = (User) session.getAttribute("user");
+		String friendList = userService.getFriendList(currentUser.getUsername());
+		if(friendList!=null)
+			response.getWriter().write(friendList);
+		else
+			response.getWriter().write("You Have No Friends! Please Add Some Friends!");
 	}
 	
 }

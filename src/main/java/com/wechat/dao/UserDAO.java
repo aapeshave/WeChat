@@ -2,6 +2,7 @@ package com.wechat.dao;
 
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import org.hibernate.HibernateException;
@@ -11,6 +12,8 @@ import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 import org.springframework.stereotype.Repository;
 
+import com.google.gson.JsonObject;
+import com.wechat.pojo.Friend;
 import com.wechat.pojo.User;
 
 @Repository
@@ -79,6 +82,26 @@ public class UserDAO extends BaseDAO{
 		}
 		catch(HibernateException hibException){
 			System.out.println(hibException);
+		}
+		return null;
+	}
+	
+	public JsonObject getFriendList(String username){
+		User currentUser = getUserByUsername(username);
+		if(currentUser!=null){
+			Collection<Friend> collectionOfFriends = currentUser.getFriendList();
+			if(collectionOfFriends!=null){
+				JsonObject jsonObject = new JsonObject();
+				//ArrayList<String> friendList = new ArrayList<String>();
+				for(Friend f : collectionOfFriends){
+					jsonObject.addProperty("username", f.getConnectedUser().getUsername());
+					jsonObject.addProperty("firstName", f.getConnectedUser().getFirstName());
+					jsonObject.addProperty("lastName", f.getConnectedUser().getLastName());
+					
+					//friendList.add(f.getConnectedUser().getUsername());
+				}
+				return jsonObject;
+			}
 		}
 		return null;
 	}

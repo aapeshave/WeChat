@@ -31,6 +31,10 @@ public class Friend implements Serializable {
 	private Boolean isAccepted;
 	private String status;
 	
+	@OneToOne(fetch=FetchType.EAGER)
+	@JoinColumn(name="personId")
+	private User connectedUser;
+	
 	public Friend(){
 		super();
 	}
@@ -62,5 +66,17 @@ public class Friend implements Serializable {
 	public void setUserList(Collection<User> userList) {
 		this.userList = userList;
 	}
+
+
+	public User getConnectedUser() {
+		return connectedUser;
+	}
+
+
+	public void setConnectedUser(User connectedUser) {
+		this.connectedUser = connectedUser;
+	}
+	
+	
 	
 }

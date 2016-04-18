@@ -20,11 +20,15 @@ div #panel-add-friends{
 }
 
 */
-/*
+
 .error-new-friend{
 	display: none;
 }
-*/
+
+.dropdown:hover .dropdown-menu {
+display: block;
+}
+
 /*Own CSS End here*/
 
 .sub-header {

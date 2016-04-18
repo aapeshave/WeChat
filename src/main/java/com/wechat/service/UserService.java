@@ -1,11 +1,18 @@
 package com.wechat.service;
 
 import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.Collection;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonObject;
 import com.wechat.dao.FriendDAO;
 import com.wechat.dao.UserDAO;
+import com.wechat.pojo.Friend;
 import com.wechat.pojo.User;
 
 @Service
@@ -29,6 +36,22 @@ public class UserService {
 	}
 	
 	public Boolean addFriend(User user, String newFrienduserName){
-		return friendDAO.addFriend(user, newFrienduserName);
+		if(user !=null && !(newFrienduserName.isEmpty())){
+			return friendDAO.addFriend(user, newFrienduserName);
+		}
+		return null;
+	}
+	
+	public String getFriendList(String username){
+		if(null != username && !username.isEmpty()){
+			//ArrayList<String> friendList = userDAO.getFriendList(username);
+			JsonObject friendList = userDAO.getFriendList(username);
+			if(friendList!=null){
+				Gson  gson = new GsonBuilder().serializeNulls().create();
+				String friendListJSONObject = gson.toJson(friendList,friendList.getClass());
+				return friendListJSONObject;
+			}
+		}
+		return null;
 	}
 }

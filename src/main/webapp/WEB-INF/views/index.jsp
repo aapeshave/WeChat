@@ -57,11 +57,26 @@
 		<div id="navbar" class="navbar-collapse collapse">
 			<ul class="nav navbar-nav navbar-right">
 				<li><a href="#">Settings</a></li>
-				<li><a href="#">Profile</a></li>
+				<li><a
+					href="/main/showProfile.htm?username=${sessionScope.user.username}">Profile</a></li>
 				<li><a href="#">Help</a></li>
-				<li><a id="link-search-friend" data-toggle="collapse"
-					href="#panel-add-friends">Add Friends</a></li>
-				<li><a href="logout.htm">Log-Out</a></li>
+				<li class="dropdown"><a class="dropdown-toggle"
+					data-toggle="dropdown" role="button" aria-haspopup="true"
+					aria-expanded="false">Friends <span class="caret"></span></a>
+					<ul class="dropdown-menu">
+						<li><a id="link-search-friend" data-toggle="collapse"
+							href="#panel-add-friends">Add Friends</a></li>
+						<li><a id="link-show-my-friend" data-toggle="collapse"
+							href="#panel-my-friends">My Friends</a></li>
+						<li><a href="#">Friend Requests</a></li>
+						<li role="separator" class="divider"></li>
+						<li><a href="#">Separated link</a></li>
+						<li role="separator" class="divider"></li>
+						<li><a href="#">One more separated link</a></li>
+					</ul></li>
+				<li><a href="logout.htm"><span
+						class="glyphicon glyphicon-log-out" aria-hidden="true"></span>Log-Out
+				</a></li>
 			</ul>
 			<form class="navbar-form navbar-right">
 				<input type="text" class="form-control" placeholder="Search...">
@@ -103,6 +118,7 @@
 				<div class="row">
 					<h3 class="page-header">Welcome ${sessionScope.user.firstName}
 						${sessionScope.user.lastName}</h3>
+					<input type="hidden" id="userNameTextFieldHidden" name="usrnameHiddenField" value="${sessionScope.user.username}"/>	
 				</div>
 				<!-- Add New Friends Collapse -->
 				<div class="row">
@@ -140,6 +156,25 @@
 					</div>
 				</div>
 				<!-- End of Add New Friends Collapse -->
+				<!-- My Friends Collapse -->
+				<div class="row placeholders">
+					<div class="collapse" id="panel-my-friends">
+						<div class="panel-heading">
+							<h3 class="panel-title">My Friends</h3>
+						</div>
+						<div class="panel-body">
+							<div class="col-xs-6 col-sm-3 placeholder">
+								<img
+									src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw=="
+									width="200" height="200" class="img-responsive"
+									alt="Generic placeholder thumbnail">
+								<h4>Label</h4>
+								<span class="text-muted">Something else</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- End Friends Collapse -->
 				<div class="row placeholders"></div>
 
 				<h2 class="sub-header">Section title</h2>

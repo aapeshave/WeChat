@@ -16,28 +16,28 @@ import javax.persistence.Table;
 public class Moderator extends User implements Serializable{
 
 	
-	private String username;
-	private String password;
+	private String usernameModeraotr;
+	private String passowrdModerator;
 	
 	@OneToMany(fetch = FetchType.EAGER, mappedBy="moderator")
 	private Collection<Chatroom> managedChatRooms = new ArrayList<Chatroom>();
 	
-	public String getUsername() {
-		return username;
+	public String getUsernameModerator() {
+		return usernameModeraotr;
 	}
-	public void setUsername(String username) {
-		this.username = username;
+	public void setUsernameModerator(String username) {
+		this.usernameModeraotr = username;
 	}
-	public String getPassword() {
-		return password;
+	public String getPasswordModerator() {
+		return passowrdModerator;
 	}
-	public void setPassword(String password) {
-		this.password = password;
+	public void setPasswordModerator(String password) {
+		this.passowrdModerator = password;
 	}
 	
 	@Override
 	public String toString() {
-		return "Moderator [username=" + username + ", password=" + password + "]";
+		return "Moderator [username=" + usernameModeraotr + ", password=" + passowrdModerator + "]";
 	}
 	
 }

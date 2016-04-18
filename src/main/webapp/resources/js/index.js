@@ -9,6 +9,33 @@ $('document').ready(function() {
 	$('#link-search-friend').click(function() {
 		$( "#form-add-friends" ).toggle( "slow" );
 	});*/	
+	
+	
+	//Ajax call for loading list of friends
+	$('#panel-my-friends').on('show.bs.collapse', function () {
+		 var $username = $('#userNameTextFieldHidden').val();
+		 //alert($username);
+		 var request = $.ajax({
+			  url: "showFriendList.htm",
+			  method: "GET",
+			  data: {username:$username},
+			  dataType: "json"
+			});
+			 
+			request.done(function( msg ) {
+				alert(msg)
+				/*$.each(msg, function (idx, value) {
+					
+				});*/
+				
+			});
+			
+			request.error(function(error) {
+				alert("error");
+			});
+	});
+
+	
 });
 
 //Ajax Function For Retrieving Friend List
@@ -50,6 +77,13 @@ function ajaxFunction(searchKey){
 	}
 }  
 
+/*
+$('#link-show-my-friend').click(function() {
+	alert("link clicked");
+})
+*/
+
+
 $(document).on('click', '.send-request-button', function () {
 	
 	var $prevSibling = $(this).prev(); 
@@ -73,9 +107,12 @@ $(document).on('click', '.send-request-button', function () {
         type: "POST",
         url: "addNewFreind.htm?friendUserName="+$username,
         success: function (dataServer) {
+        	$(".error-new-friend").css("display", "block");
         	$('#error-text-new-friend').html(dataServer);
+        	$('#panel-add-friends').collapse()
     	},
     	error: function(err){
+    		$(".error-new-friend").css("display", "block");
     		$('#error-text-new-friend').html(err);
     	}
     });
