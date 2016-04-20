@@ -37,7 +37,7 @@ public class UserService {
 	
 	public Boolean addFriend(User user, String newFrienduserName){
 		if(user !=null && !(newFrienduserName.isEmpty())){
-			return friendDAO.addFriend(user, newFrienduserName);
+			return friendDAO.addNewFriend(user, newFrienduserName);
 		}
 		return null;
 	}
@@ -45,13 +45,35 @@ public class UserService {
 	public String getFriendList(String username){
 		if(null != username && !username.isEmpty()){
 			//ArrayList<String> friendList = userDAO.getFriendList(username);
-			JsonObject friendList = userDAO.getFriendList(username);
+			//JsonObject friendList = userDAO.getFriendList(username);
+			ArrayList<User> friendList = userDAO.getFriendList(username);
 			if(friendList!=null){
 				Gson  gson = new GsonBuilder().serializeNulls().create();
-				String friendListJSONObject = gson.toJson(friendList,friendList.getClass());
+				//String friendListJSONObject = gson.toJson(friendList,friendList.getClass());
+				String friendListJSONObject = gson.toJson(friendList, friendList.getClass());
 				return friendListJSONObject;
 			}
 		}
 		return null;
+	}
+	
+	
+	public String getPendingFriendList(String username){
+		if(null != username && !username.isEmpty()){
+			//ArrayList<String> friendList = userDAO.getFriendList(username);
+			//JsonObject friendList = userDAO.getFriendList(username);
+			ArrayList<User> friendList = userDAO.getPendingFriendList(username);
+			if(friendList!=null){
+				Gson  gson = new GsonBuilder().serializeNulls().create();
+				//String friendListJSONObject = gson.toJson(friendList,friendList.getClass());
+				String friendListJSONObject = gson.toJson(friendList, friendList.getClass());
+				return friendListJSONObject;
+			}
+		}
+		return null;
+	}
+	
+	public Boolean acceptFriend(User user, String newFrienduserName){
+		return friendDAO.acceptFriend(user, newFrienduserName);
 	}
 }

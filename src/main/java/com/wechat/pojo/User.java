@@ -31,7 +31,7 @@ public class User extends Person implements Serializable{
 	private Date isCreatedOn;
 	private Boolean isActive;
 	
-	@ManyToMany(mappedBy="userList",fetch=FetchType.EAGER)
+	@ManyToMany(fetch=FetchType.EAGER)
 	private Collection<Friend> friendList = new ArrayList<Friend>();
 	
 	@ManyToMany(cascade = CascadeType.ALL)

@@ -86,24 +86,71 @@ public class UserDAO extends BaseDAO{
 		return null;
 	}
 	
-	public JsonObject getFriendList(String username){
+	public ArrayList<User> getFriendList(String username){
 		User currentUser = getUserByUsername(username);
 		if(currentUser!=null){
 			Collection<Friend> collectionOfFriends = currentUser.getFriendList();
 			if(collectionOfFriends!=null){
 				JsonObject jsonObject = new JsonObject();
 				//ArrayList<String> friendList = new ArrayList<String>();
+				ArrayList<User> userFriendList = new ArrayList<User>();
 				for(Friend f : collectionOfFriends){
-					jsonObject.addProperty("username", f.getConnectedUser().getUsername());
-					jsonObject.addProperty("firstName", f.getConnectedUser().getFirstName());
-					jsonObject.addProperty("lastName", f.getConnectedUser().getLastName());
+					//System.out.println(f);
+					if(f.getIsAccepted()){
+						//System.out.println("adding this user to list");
+						User newUser = new User();
+						newUser.setEmail(f.getConnectedUser().getEmail());
+						newUser.setFirstName(f.getConnectedUser().getFirstName());
+						newUser.setLastName(f.getConnectedUser().getLastName());
+						newUser.setUsername(f.getConnectedUser().getUsername());
+						userFriendList.add(newUser);
+						//jsonObject.addProperty("username", f.getConnectedUser().getUsername());
+						//jsonObject.addProperty("firstName", f.getConnectedUser().getFirstName());
+						//jsonObject.addProperty("lastName", f.getConnectedUser().getLastName());
+						
+						//friendList.add(f.getConnectedUser().getUsername());
+					}
 					
-					//friendList.add(f.getConnectedUser().getUsername());
 				}
-				return jsonObject;
+				return userFriendList;
 			}
 		}
 		return null;
 	}
+	
+	public ArrayList<User> getPendingFriendList(String username){
+		Session session = getSession();
+		User currentUser = (User) session.load(User.class,getUserByUsername(username).getPersonId());
+		if(currentUser!=null){
+			Collection<Friend> collectionOfFriends = currentUser.getFriendList();
+			if(collectionOfFriends!=null){
+				JsonObject jsonObject = new JsonObject();
+				//ArrayList<String> friendList = new ArrayList<String>();
+				ArrayList<User> userFriendList = new ArrayList<User>();
+				System.out.println("Printing Friend List of: "+currentUser.getUsername());
+				for(Friend f : collectionOfFriends){
+					System.out.println(f);
+					if(!f.getIsAccepted()){
+						User newUser = new User();
+						newUser.setEmail(f.getConnectedUser().getEmail());
+						newUser.setFirstName(f.getConnectedUser().getFirstName());
+						newUser.setLastName(f.getConnectedUser().getLastName());
+						newUser.setUsername(f.getConnectedUser().getUsername());
+						userFriendList.add(newUser);
+						//jsonObject.addProperty("username", f.getConnectedUser().getUsername());
+						//jsonObject.addProperty("firstName", f.getConnectedUser().getFirstName());
+						//jsonObject.addProperty("lastName", f.getConnectedUser().getLastName());
+						
+						//friendList.add(f.getConnectedUser().getUsername());
+					}
+					
+				}
+				returnSession(session);
+				return userFriendList;
+			}
+		}
+		return null;
+	}
+	
 	
 }

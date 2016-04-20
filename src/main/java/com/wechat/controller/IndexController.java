@@ -64,7 +64,8 @@ public class IndexController {
 	{
 		//Boolean someValue = userService.addFriend(userService.getUserByUsername("aapeshave"), "sanket007");
 		//System.out.println(someValue);
-		System.out.println(userService.getFriendList("sanket007"));
+		//System.out.println(userService.getFriendList("sanket007"));
+		System.out.println(userService.acceptFriend(userService.getUserByUsername("aapeshave"), "sanket007"));
 		System.out.println("Showing Profile");
 		
 	}
@@ -95,7 +96,24 @@ public class IndexController {
 		if(friendList!=null)
 			response.getWriter().write(friendList);
 		else
-			response.getWriter().write("You Have No Friends! Please Add Some Friends!");
+		{
+			System.out.println("sending error");
+			response.sendError(404);
+		}	
 	}
 	
+	@RequestMapping(method=RequestMethod.GET,value="/showPendingFriendList.htm")
+	public void showPendingFriendListCollectoin(HttpSession session, HttpServletRequest request, HttpServletResponse response) throws IOException
+	{
+		User currentUser = (User) session.getAttribute("user");
+		String friendList = userService.getPendingFriendList(currentUser.getUsername());
+		if(friendList!=null)
+			response.getWriter().write(friendList);
+		else
+		{
+			System.out.println("sending error");
+			response.sendError(404);
+		}
+			
+	}
 }

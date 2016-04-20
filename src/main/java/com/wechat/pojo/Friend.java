@@ -25,7 +25,7 @@ public class Friend implements Serializable {
 	@Column(name="friendID")
 	private long friendId;
 	
-	@ManyToMany(fetch=FetchType.EAGER)
+	@ManyToMany(fetch=FetchType.EAGER,mappedBy="friendList")
 	private Collection<User> userList  = new ArrayList<User>();
 	
 	private Boolean isAccepted;
@@ -37,6 +37,7 @@ public class Friend implements Serializable {
 	
 	public Friend(){
 		super();
+		this.userList = new ArrayList<User>();
 	}
 	
 	
@@ -76,7 +77,11 @@ public class Friend implements Serializable {
 	public void setConnectedUser(User connectedUser) {
 		this.connectedUser = connectedUser;
 	}
-	
-	
+
+
+	@Override
+	public String toString() {
+		return "Friend [friendId=" + friendId + ", isAccepted=" + isAccepted + ", status=" + status + "]";
+	}
 	
 }

@@ -68,7 +68,8 @@
 							href="#panel-add-friends">Add Friends</a></li>
 						<li><a id="link-show-my-friend" data-toggle="collapse"
 							href="#panel-my-friends">My Friends</a></li>
-						<li><a href="#">Friend Requests</a></li>
+						<li><a id="link-show-my-friend" data-toggle="collapse"
+							href="#panel-my-pending-friends">Friend Requests</a></li>
 						<li role="separator" class="divider"></li>
 						<li><a href="#">Separated link</a></li>
 						<li role="separator" class="divider"></li>
@@ -163,6 +164,8 @@
 							<h3 class="panel-title">My Friends</h3>
 						</div>
 						<div class="panel-body">
+							<p id="my-friends-results-div"></p>
+							<!-- 
 							<div class="col-xs-6 col-sm-3 placeholder">
 								<img
 									src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw=="
@@ -170,7 +173,20 @@
 									alt="Generic placeholder thumbnail">
 								<h4>Label</h4>
 								<span class="text-muted">Something else</span>
-							</div>
+							</div> -->
+						</div>
+					</div>
+				</div>
+				<!-- End Friends Collapse -->
+				<!-- My Friends Collapse -->
+				<div class="row placeholders">
+					<div class="collapse" id="panel-my-pending-friends">
+						<div class="panel-heading">
+							<h3 class="panel-title">Awaiting Friend Requests</h3>
+						</div>
+						<div class="panel-body">
+							<p id="my-pending-friends-results-div"></p>
+							
 						</div>
 					</div>
 				</div>
