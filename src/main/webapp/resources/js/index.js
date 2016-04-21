@@ -10,6 +10,25 @@ $('document').ready(function() {
 		$( "#form-add-friends" ).toggle( "slow" );
 	});*/	
 	
+	//Calls to delete all divs from panels 
+	$('#panel-my-pending-friends').on('hidden.bs.collapse', function () {
+		$('.pending-friends-div').remove();
+	});
+	
+	$('#panel-my-friends').on('hidden.bs.collapse', function () {
+		$('.friends-div').remove();
+	});
+	
+	$('#panel-add-friends').on('hidden.bs.collapse', function () {
+		$('.my-result-list').remove();
+	});
+	
+	
+	//AJAX call for loading online friends
+	setInterval(function() {
+		//alert("loading friends")
+	},5000);
+	
 	
 	//Ajax call for loading list of friends
 	$('#panel-my-friends').on('show.bs.collapse', function () {
@@ -23,20 +42,26 @@ $('document').ready(function() {
 			});
 			 
 			request.done(function( msg ) {
-				alert(msg.firstName);
+				//alert(msg.firstName);
 				try{
 					//var jsonObj = JSON.parse(msg);
+					
 					$.each(msg, function (idx, value) {
-						var toAppend = "<div class=\"col-xs-6 col-sm-3 placeholder\">";
-						toAppend +="<img src=\"data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" +
-								"\"width=\"200\" " +
-								"height=\"200\" " +
-								"class=\"img-responsive\"" +
-								"alt=\"Generic placeholder thumbnail\">";
-						toAppend+="<h4>"+value.firstName+" "+ value.lastName+ "</h4>";
-						toAppend+="<span class=\"text-muted\">Send Message</span>";
-						$('#my-friends-results-div').append(toAppend);
-						$('#my-friends-results-div').append("</div>");
+						if(value.firstName!='NULL'){
+							var toAppend = "<div class=\"col-xs-6 col-sm-3 placeholder friends-div\">";
+							toAppend +="<img src=\"data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" +
+									"\"width=\"200\" " +
+									"height=\"200\" " +
+									"class=\"img-responsive\"" +
+									"alt=\"Generic placeholder thumbnail\">";
+							toAppend+="<h4>"+value.firstName+" "+ value.lastName+ "</h4>";
+							toAppend+="<span class=\"text-muted\">Send Message</span>";
+							$('#my-friends-results-div').append(toAppend);
+							$('#my-friends-results-div').append("</div>");
+						}
+						else{
+							$('#my-friends-results-div').html("Currently you have no friends!");
+						}
 						
 					});
 				}
@@ -65,24 +90,35 @@ $('document').ready(function() {
 			});
 			 
 			request.done(function( msg ) {
-				alert(msg.firstName);
+				//alert(msg.firstName);
 				try{
 					//var jsonObj = JSON.parse(msg);
-					$.each(msg, function (idx, value) {
-						var toAppend = "<div class=\"col-xs-6 col-sm-3 placeholder\">";
-						toAppend +="<img src=\"data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" +
-								"\"width=\"200\" " +
-								"height=\"200\" " +
-								"class=\"img-responsive\"" +
-								"alt=\"Generic placeholder thumbnail\">";
-						toAppend+="<h4>"+value.firstName+" "+ value.lastName+ "</h4>";
-						toAppend+="<span class=\"text-muted\"><a>Accpet</a></span>";
-						toAppend+="<span class=\"text-muted\">&nbsp;/&nbsp;</span>";
-						toAppend+="<span class=\"text-muted\"><a>Reject</a></span>";
-						$('#my-pending-friends-results-div').append(toAppend);
-						$('#my-pending-friends-results-div').append("</div>");
-						
-					});
+					if(msg.length==0){
+						$('#my-pending-friends-results-div').html("Currently you have no pending requests!");
+					}
+					else{
+						$.each(msg, function (idx, value) {
+							
+							if(value.firstName!= 'NULL'){
+								var toAppend = "<div class=\"col-xs-6 col-sm-3 placeholder pending-friends-div\">";
+								toAppend +="<img src=\"data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" +
+										"\"width=\"200\" " +
+										"height=\"200\" " +
+										"class=\"img-responsive\"" +
+										"alt=\"Generic placeholder thumbnail\">";
+								toAppend+="<h4>"+value.firstName+" "+ value.lastName+ "</h4>";
+								toAppend+="<span class=\"hidden\">"+value.username+ "</span>";
+								toAppend+="<span class=\"text-muted\"><a class=\"link-to-accept-friend\">Accpet</a></span>";
+								toAppend+="<span class=\"text-muted\">&nbsp;/&nbsp;</span>";
+								toAppend+="<span class=\"text-muted\"><a class=\"link-to-reject-friend\">Reject</a></span>";
+								$('#my-pending-friends-results-div').append(toAppend);
+								$('#my-pending-friends-results-div').append("</div>");
+							}
+							else{
+								$('#my-pending-friends-results-div').html("Currently you have no friends!");
+							}
+						});
+					}
 				}
 				catch(e){
 					$('#my-pending-friends-results-div').html("Currently you have no friends!");
@@ -148,7 +184,7 @@ $(document).on('click', '.send-request-button', function () {
 	
 	var $prevSibling = $(this).prev(); 
 	var $username  =$prevSibling.text();
-	alert($username);
+	//alert($username);
 	/*
 	var requestAddFriend = $.ajax({
 		  url: "addNewFreind.htm",
@@ -176,6 +212,32 @@ $(document).on('click', '.send-request-button', function () {
     		$('#error-text-new-friend').html(err);
     	}
     });
+   
+});
+
+
+$(document).on('click', '.link-to-accept-friend', function () {
+	var $span = $(this).parent().prev();
+	var $username = $span.text();
+	alert($username);
+	
+	
+	$.ajax({
+        type: "POST",
+        url: "acceptFriend.htm?friendUserName="+$username,
+        success: function (dataServer) {
+        	$(".error-accept-new-friend").css("display", "block");
+        	$('#error-text-accept-new-friend').html(dataServer);
+        	$('#panel-my-pending-friends').collapse('hide');
+			$('.pending-friends-div').remove();
+        	$('#panel-my-friends').collapse()
+    	},
+    	error: function(err){
+    		$(".error-accept-new-friend").css("display", "block");
+    		$('#error-text-accept-new-friend').html(err);
+    	}
+    });
+    
    
 });
 	

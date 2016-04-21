@@ -102,11 +102,16 @@
 					<li><a href="#">Export</a></li>
 				</ul>
 				<ul class="nav nav-sidebar">
+					<!--  
 					<li><a href="">Nav item</a></li>
 					<li><a href="">Nav item again</a></li>
 					<li><a href="">One more nav</a></li>
 					<li><a href="">Another nav item</a></li>
 					<li><a href="">More navigation</a></li>
+					-->
+					<c:forEach items="${requestScope.onlineFriends}" var="current">
+						<li><a href=""><c:out value="${current}"/></a></li>
+					</c:forEach>
 				</ul>
 				<ul class="nav nav-sidebar">
 					<li><a href="">Nav item again</a></li>
@@ -119,7 +124,8 @@
 				<div class="row">
 					<h3 class="page-header">Welcome ${sessionScope.user.firstName}
 						${sessionScope.user.lastName}</h3>
-					<input type="hidden" id="userNameTextFieldHidden" name="usrnameHiddenField" value="${sessionScope.user.username}"/>	
+					<input type="hidden" id="userNameTextFieldHidden"
+						name="usrnameHiddenField" value="${sessionScope.user.username}" />
 				</div>
 				<!-- Add New Friends Collapse -->
 				<div class="row">
@@ -186,7 +192,18 @@
 						</div>
 						<div class="panel-body">
 							<p id="my-pending-friends-results-div"></p>
-							
+
+						</div>
+					</div>
+					<div class="row error-accept-new-friend">
+						<!-- Div for alert of friend -->
+						<div class="alert alert-warning alert-dismissible fade in"
+							role="alert">
+							<button type="button" class="close" data-dismiss="alert"
+								aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+							<p id="error-text-accept-new-friend">Error Message</p>
 						</div>
 					</div>
 				</div>

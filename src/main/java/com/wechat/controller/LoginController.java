@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -38,6 +39,9 @@ private AuthenticationService authenticationService;
 
 @Autowired
 private SearchServices searchService;
+
+@Autowired
+private ServletContext servletContext;
 
 	/**
 	 * Simply selects the home view to render by returning its name.
@@ -81,6 +85,21 @@ private SearchServices searchService;
 			return "{\"result\":\"Authenticated\", \"TOKEN\":\""+ session.getId() +"\" }";
 			*/
 			session.setAttribute("user", loggedOnUser);
+			
+			if(servletContext!=null){
+				ArrayList<String> onlineUsers = (ArrayList<String>) servletContext.getAttribute("loggedInUsersList");
+				if(onlineUsers==null)
+					onlineUsers = new ArrayList<String>();
+				onlineUsers.add(loggedOnUser.getUsername());
+				servletContext.setAttribute("loggedInUsersList", onlineUsers);
+//				System.out.println("Printing Online Users");
+//				for(String s:onlineUsers){
+//					System.out.println(s);
+//				}
+				//ArrayList<String> onlineFriends = searchService.onlineFriendList(onlineUsers, loggedOnUser.getUsername());
+				//mav.addObject("onlineFriends", onlineFriends);
+			}
+			
 			mav.setViewName("index");
 			return mav;
 		}
@@ -120,7 +139,11 @@ private SearchServices searchService;
 	
 	@RequestMapping(value = "/logout.htm", method = RequestMethod.GET)
 	public String logoutAction(HttpSession session, HttpServletRequest request, HttpServletResponse response){
+		User loggedInUser = (User) session.getAttribute("user");
+		ArrayList<String> onlineUsers = (ArrayList<String>) servletContext.getAttribute("loggedInUsersList");
+		onlineUsers.remove(loggedInUser.getUsername());
 		session.invalidate();
 		return "login";
 	}
+	
 }

@@ -152,5 +152,23 @@ public class UserDAO extends BaseDAO{
 		return null;
 	}
 	
-	
+	public ArrayList<String> returnOnlineFreinds(ArrayList<String> onlineUsers, String username){
+		ArrayList<String> onlineFriendList = new ArrayList<String>();
+		Session session = getSession();
+		User currentUser = (User) session.load(User.class,getUserByUsername(username).getPersonId());
+		if(currentUser!=null){
+			Collection<Friend> friendListOfUser = currentUser.getFriendList();
+			if(friendListOfUser!=null){
+				for(Friend f:friendListOfUser){
+					for(String s: onlineUsers){
+						if(s.equals(f.getConnectedUser().getUsername())){
+							onlineFriendList.add(s);
+						}
+					}
+				}
+				return onlineFriendList;	
+			}
+		}
+		return null;
+	}
 }

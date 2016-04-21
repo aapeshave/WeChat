@@ -5,6 +5,7 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -31,6 +32,9 @@ public class IndexController {
 	
 	@Autowired
 	UserService userService;
+	
+	@Autowired
+	ServletContext servletContext;
 	
 	private static final Logger logger = LoggerFactory.getLogger(IndexController.class);
 
@@ -65,7 +69,7 @@ public class IndexController {
 		//Boolean someValue = userService.addFriend(userService.getUserByUsername("aapeshave"), "sanket007");
 		//System.out.println(someValue);
 		//System.out.println(userService.getFriendList("sanket007"));
-		System.out.println(userService.acceptFriend(userService.getUserByUsername("aapeshave"), "sanket007"));
+		//System.out.println(userService.acceptFriend(userService.getUserByUsername("aapeshave"), "sanket007"));
 		System.out.println("Showing Profile");
 		
 	}
@@ -79,12 +83,10 @@ public class IndexController {
 		if(someValue==Boolean.TRUE){
 			logger.info("New Friend for user:"+currentUser.getUsername()+" is added!");
 			response.getWriter().write("New Friend Added"); 
-			//System.out.println("Writing new Friend Added to Response");
 		}
 			
 		else{
 			response.getWriter().write("Can not add new friend");
-			//System.out.println("Writing new Friend can not be Added to Response");
 		}
 	}
 	
@@ -116,4 +118,36 @@ public class IndexController {
 		}
 			
 	}
+	
+	@RequestMapping(method=RequestMethod.POST,value="/acceptFriend.htm")
+	public void acceptFriendRequest(HttpSession session, HttpServletRequest request, HttpServletResponse response) throws IOException
+	{
+		String friendUserName = request.getParameter("friendUserName");
+		User currentUser = (User) session.getAttribute("user");
+		Boolean someValue = userService.acceptFriend(currentUser, friendUserName);
+		if(someValue==Boolean.TRUE){
+			response.getWriter().write("Friend Requst Accepted!"); 
+		}
+			
+		else{
+			response.getWriter().write("Error in Accepting Friend Reqest");
+		}
+	}
+	
+	
+	@RequestMapping(method=RequestMethod.GET,value="/getOnlineFreinds.htm")
+	public void sendOnlineFriends(HttpSession session, HttpServletRequest request, HttpServletResponse response) throws IOException
+	{
+		ArrayList<String> onlineUsers = (ArrayList<String>) servletContext.getAttribute("loggedInUsersList");
+		User currentUser = (User) session.getAttribute("user");
+		
+		if(currentUser.getRole().equals("User")){
+			String onlineFriendList = searchService.onlineFriendList(onlineUsers, currentUser.getUsername());
+			response.getWriter().write(onlineFriendList); 
+		}
+		else{
+			response.getWriter().write("Error in Getting Friends");
+		}
+	}
+	
 }
