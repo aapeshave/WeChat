@@ -29,6 +29,15 @@ div #panel-add-friends{
 display: block;
 }
 
+#main-chatting-window{
+	overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
+}
+
+div #main-chatting-window > *{
+	float: left;
+	margin-left:auto;
+}
+
 /*Own CSS End here*/
 
 .sub-header {

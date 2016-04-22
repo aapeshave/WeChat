@@ -32,15 +32,15 @@ public class SearchServices {
 		return null;	
 	}
 	
-	public String onlineFriendList(ArrayList<String> listOfOnlineMembers, String username){
+	public ArrayList<String> onlineFriendList(ArrayList<String> listOfOnlineMembers, String username){
 		if(listOfOnlineMembers!=null){
 			if(null!= username && !username.isEmpty()){
 				ArrayList<String> onlineFriends = userDAO.returnOnlineFreinds(listOfOnlineMembers, username);
 				if(onlineFriends!=null){
-					Gson  gson = new GsonBuilder().serializeNulls().create();
-					String result = gson.toJson(onlineFriends, onlineFriends.getClass());
-					System.out.println(result);
-					return result;
+					//Gson  gson = new GsonBuilder().serializeNulls().create();
+					//String result = gson.toJson(onlineFriends, onlineFriends.getClass());
+					//System.out.println(result);
+					return onlineFriends;
 				}
 			}
 		}

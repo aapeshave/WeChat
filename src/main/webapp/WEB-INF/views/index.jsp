@@ -94,14 +94,15 @@
 	<div class="container-fluid">
 		<div class="row">
 			<div class="col-sm-3 col-md-2 sidebar">
-				<ul class="nav nav-sidebar">
+				<ul class="nav nav-sidebar insert-new-ul">
 					<li class="active"><a href="#">Overview <span
 							class="sr-only">(current)</span></a></li>
 					<li><a href="#">Reports</a></li>
 					<li><a href="#">Analytics</a></li>
 					<li><a href="#">Export</a></li>
+					<li><a id="load-friends-link">Refresh Online Friends</a></li>
 				</ul>
-				<ul class="nav nav-sidebar">
+				<!--  <ul class="nav nav-sidebar my-online-friends-result">
 					<!--  
 					<li><a href="">Nav item</a></li>
 					<li><a href="">Nav item again</a></li>
@@ -109,10 +110,13 @@
 					<li><a href="">Another nav item</a></li>
 					<li><a href="">More navigation</a></li>
 					-->
+				<!-- 
 					<c:forEach items="${requestScope.onlineFriends}" var="current">
 						<li><a href=""><c:out value="${current}"/></a></li>
 					</c:forEach>
-				</ul>
+						
+				</ul> -->
+
 				<ul class="nav nav-sidebar">
 					<li><a href="">Nav item again</a></li>
 					<li><a href="">One more nav</a></li>
@@ -208,10 +212,28 @@
 					</div>
 				</div>
 				<!-- End Friends Collapse -->
-				<div class="row placeholders"></div>
 
-				<h2 class="sub-header">Section title</h2>
-
+				<div class="row placeholders">
+					<div class="collapse" id="panel-chat-window">
+						<div class="panel-heading">
+							<h3 class="panel-title">Chat Window</h3>
+						</div>
+						<div class="panel-body">
+							<p>Chatting window will appear over here</p>
+							<div class="row" id="main-chatting-window">
+								<div class="row">
+									<form class="form">
+										<div class="form-group">
+											<input type="text" class="form-control"
+												id="chat-text-input" placeholder="Enter some message to send">
+												<button type="submit" class="btn btn-default">Send Message</button>
+										</div>
+									</form>
+								</div><!-- End of row for input message form -->
+							</div><!-- End of main chatting window -->
+						</div><!-- End of Panel Body -->
+					</div><!-- End of Collapse -->
+				</div><!-- End of Full Panel -->
 
 			</div>
 		</div>

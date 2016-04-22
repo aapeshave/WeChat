@@ -3,7 +3,10 @@
  */
 
 var username;
+var toChatWithUserName;
 $('document').ready(function() {
+	
+	'use strict';
 	//alert("DOM Ready!");
 	/*
 	$('#link-search-friend').click(function() {
@@ -24,11 +27,37 @@ $('document').ready(function() {
 	});
 	
 	
-	//AJAX call for loading online friends
-	setInterval(function() {
-		//alert("loading friends")
-	},5000);
+//	//AJAX call for loading online friends
+//	setInterval(function() {
+//		//alert("loading friends")
+//	},5000);
 	
+	
+	$('#load-friends-link').click(function() {
+		alert("Loading friends");
+		$('.my-online-friends-result').remove();
+		$('.my-online-friends-result-item').remove();
+		$.ajax({
+	        type: "POST",
+	        url: "getOnlineFreinds.htm",
+	        dataType:"json",
+	        success: function (dataServer) {
+	        	//alert(dataServer);
+	        	//var objectJSON = JSON.parse(dataServer);
+	        	$('.insert-new-ul').append("<ul class=\"nav nav-sidebar my-online-friends-result\">");
+	        	$.each(dataServer, function (idx, value) {
+					//alert(value);
+	        		var toAppend = "<li class=\"my-online-friends-result-item\"><a data-toggle=\"collapse\" class=\"chat-with-friend\" href=\"#panel-chat-window\">"+value+"</a></li>";
+	        		$('.insert-new-ul').append(toAppend);
+				});
+	        	$('.insert-new-ul').append("</ul>");
+	    	},
+	    	error: function(err){
+	    		alert(err);
+	    	}
+	    });
+		
+	});
 	
 	//Ajax call for loading list of friends
 	$('#panel-my-friends').on('show.bs.collapse', function () {
@@ -122,9 +151,7 @@ $('document').ready(function() {
 				}
 				catch(e){
 					$('#my-pending-friends-results-div').html("Currently you have no friends!");
-				}
-				
-				
+				}	
 			});
 			
 			request.error(function(error) {
@@ -179,6 +206,12 @@ $('#link-show-my-friend').click(function() {
 })
 */
 
+//When user selects some one to chat with
+$(document).on('click','.chat-with-friend',function(){
+	var $aText = $(this).text();
+	alert($aText);
+	toChatWithUserName = $aText;
+});
 
 $(document).on('click', '.send-request-button', function () {
 	
@@ -219,8 +252,7 @@ $(document).on('click', '.send-request-button', function () {
 $(document).on('click', '.link-to-accept-friend', function () {
 	var $span = $(this).parent().prev();
 	var $username = $span.text();
-	alert($username);
-	
+	//alert($username);
 	
 	$.ajax({
         type: "POST",
@@ -237,7 +269,5 @@ $(document).on('click', '.link-to-accept-friend', function () {
     		$('#error-text-accept-new-friend').html(err);
     	}
     });
-    
-   
 });
 	

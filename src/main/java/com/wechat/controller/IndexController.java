@@ -15,8 +15,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -135,19 +137,21 @@ public class IndexController {
 	}
 	
 	
-	@RequestMapping(method=RequestMethod.GET,value="/getOnlineFreinds.htm")
-	public void sendOnlineFriends(HttpSession session, HttpServletRequest request, HttpServletResponse response) throws IOException
+	@RequestMapping(method=RequestMethod.POST,value="/getOnlineFreinds.htm",produces="application/json")
+	public @ResponseBody Collection<String> sendOnlineFriends(HttpSession session, HttpServletRequest request, HttpServletResponse response) throws IOException
 	{
 		ArrayList<String> onlineUsers = (ArrayList<String>) servletContext.getAttribute("loggedInUsersList");
 		User currentUser = (User) session.getAttribute("user");
 		
 		if(currentUser.getRole().equals("User")){
-			String onlineFriendList = searchService.onlineFriendList(onlineUsers, currentUser.getUsername());
-			response.getWriter().write(onlineFriendList); 
+			Collection<String> onlineFriendList = searchService.onlineFriendList(onlineUsers, currentUser.getUsername());
+			//response.getWriter().write(onlineFriendList); 
+			return onlineFriendList;
 		}
 		else{
-			response.getWriter().write("Error in Getting Friends");
+			//response.getWriter().write("Error in Getting Friends");
 		}
+		return null;
 	}
 	
 }

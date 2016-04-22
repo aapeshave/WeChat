@@ -42,12 +42,12 @@
 			<div class="col-sm-12 col-md-6 col-lg-6 signup-form">
 				<label for="input_Email">Email
 					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </label>
-				<form:input path="email" id="input_Email" size="30" />
+				<form:input path="email" id="input_Email" size="30" required="true"/>
 				<font color="red"><form:errors path="email" /></font>
 			</div>
 			<div class="col-sm-12 col-md-6 col-lg-6 signup-form">
 				<label for="input_username">UserName</label>
-				<form:input path="username" id="input_username" size="30" />
+				<form:input path="username" id="input_username" size="30" required="true" />
 				<font color="red"><form:errors path="username" /></font>
 			</div>
 			<div class="col-sm-12 col-md-12 col-lg-12 signup-form">
@@ -58,12 +58,12 @@
 			</div>
 			<div class="col-sm-12 col-md-6 col-lg-6 signup-form">
 				<label for="input_firstName">First Name</label>
-				<form:input path="firstName" id="input_firstName" size="30" />
+				<form:input path="firstName" id="input_firstName" size="30" required="true"/>
 				<font color="red"><form:errors path="firstName" /></font>
 			</div>
 			<div class="col-sm-12 col-md-6 col-lg-6 signup-form">
 				<label for="input_lastName">Last Name</label>
-				<form:input path="lastName" id="input_lastName" size="30" />
+				<form:input path="lastName" id="input_lastName" size="30" required="true"/>
 				<font color="red"><form:errors path="lastName" /></font>
 			</div>
 			<div class="col-sm-12 col-md-12 col-lg-12 signup-form">
