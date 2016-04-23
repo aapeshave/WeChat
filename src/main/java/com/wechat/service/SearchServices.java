@@ -46,4 +46,11 @@ public class SearchServices {
 		}
 		return null;
 	}
+	
+	public String getQueueNameOfUserByUsername(String username){
+		if(null!= username && !username.isEmpty()){
+			return userDAO.getQueueNameOfUser(username);
+		}
+		return null;
+	}
 }

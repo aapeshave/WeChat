@@ -14,6 +14,9 @@ $('document').ready(function() {
 	});*/	
 	
 	//Calls to delete all divs from panels 
+	
+	username =  $('#userNameTextFieldHidden').val();
+	
 	$('#panel-my-pending-friends').on('hidden.bs.collapse', function () {
 		$('.pending-friends-div').remove();
 	});
@@ -62,6 +65,7 @@ $('document').ready(function() {
 	//Ajax call for loading list of friends
 	$('#panel-my-friends').on('show.bs.collapse', function () {
 		 var $username = $('#userNameTextFieldHidden').val();
+		 username = $('#userNameTextFieldHidden').val();
 		 //alert($username);
 		 var request = $.ajax({
 			  url: "showFriendList.htm",
@@ -105,7 +109,26 @@ $('document').ready(function() {
 				alert(error);
 			});
 	});
-
+	
+	//Send Message AJAX Call
+	$('#chat-send-btn').click(function() {
+		alert("Send button clicked");
+		alert(toChatWithUserName);
+		var message = $('#chat-text-input').val();
+		$.ajax({
+	        type: "POST",
+	        url: "sendMessage.htm",
+	        data: {user: username, message: message, friendUsername:toChatWithUserName },
+	        dataType: "json"
+	    })
+	            .done(function (data) {
+	                
+	            }).error(function (err) {
+	        //alert(err);
+	    });
+		$('#result-chat-paragraph').append("<div class=\"col-sm-8 col-sm-offset-2 col-md-9 col-md-offset-2 well well-sm self-message\"><p>"+message+"</p></div>");
+		return false;
+	});
 	
 	//Ajax call for loading list of friends
 	$('#panel-my-pending-friends').on('show.bs.collapse', function () {
@@ -209,9 +232,27 @@ $('#link-show-my-friend').click(function() {
 //When user selects some one to chat with
 $(document).on('click','.chat-with-friend',function(){
 	var $aText = $(this).text();
-	alert($aText);
+	//alert($aText);
 	toChatWithUserName = $aText;
+	
 });
+
+//$(document).on('click','#chat-send-btn',function(){
+//	var message = $('#chat-text-input').val();
+//	$.ajax({
+//        type: "POST",
+//        url: "sendMessage.htm",
+//        data: {user: username, message: message, friendUsername:toChatWithUserName },
+//        dataType: "json"
+//    })
+//            .done(function (data) {
+//                
+//            }).error(function (err) {
+//        alert(err);
+//    });
+//});
+
+
 
 $(document).on('click', '.send-request-button', function () {
 	

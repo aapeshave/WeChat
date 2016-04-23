@@ -11,12 +11,14 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class RabbitConfiguration {
+	
 	@Bean
 	public ConnectionFactory connectionFactory() {
 		CachingConnectionFactory connectionFactory = new CachingConnectionFactory("localhost");
 		connectionFactory.setChannelCacheSize(25);
 		connectionFactory.setUsername("guest");
 		connectionFactory.setPassword("guest");
+		connectionFactory.setChannelCacheSize(20);
 		return connectionFactory;
 	}
 

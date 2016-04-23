@@ -171,4 +171,12 @@ public class UserDAO extends BaseDAO{
 		}
 		return null;
 	}
+	
+	public String getQueueNameOfUser(String username){
+		User currentUser = getUserByUsername(username);
+		if(currentUser!=null){
+			return currentUser.getQueueName();
+		}
+		return null;
+	}
 }

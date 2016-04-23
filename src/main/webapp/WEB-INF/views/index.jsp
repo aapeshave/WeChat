@@ -222,18 +222,29 @@
 							<p>Chatting window will appear over here</p>
 							<div class="row" id="main-chatting-window">
 								<div class="row">
-									<form class="form">
-										<div class="form-group">
-											<input type="text" class="form-control"
-												id="chat-text-input" placeholder="Enter some message to send">
-												<button type="submit" class="btn btn-default">Send Message</button>
-										</div>
-									</form>
-								</div><!-- End of row for input message form -->
-							</div><!-- End of main chatting window -->
-						</div><!-- End of Panel Body -->
-					</div><!-- End of Collapse -->
-				</div><!-- End of Full Panel -->
+									<div class="col-sm-6 col-sm-offset-2 col-md-6 col-md-offset-2">
+										<form class="form">
+											<div class="form-group">
+												<input type="text" class="form-control" id="chat-text-input"
+													placeholder="Enter some message to send">
+												<button id="chat-send-btn" class="btn btn-default">Send
+													Message</button>
+											</div>
+										</form>
+									</div>
+								</div>
+								<!-- End of row for input message form -->
+								<div class="row">
+									<p id="result-chat-paragraph"></p>
+								</div>
+							</div>
+							<!-- End of main chatting window -->
+						</div>
+						<!-- End of Panel Body -->
+					</div>
+					<!-- End of Collapse -->
+				</div>
+				<!-- End of Full Panel -->
 
 			</div>
 		</div>
