@@ -36,7 +36,7 @@
 <body>
 	<div class="container">
 		<form:form class="form-signup" id="signup-form" action="signup.htm"
-			commandName="user" method="post">
+			commandName="user" method="post" enctype="multipart/form-data">
 			<h2 class="form-signup-heading">Fill this form to Create New
 				Account</h2>
 			<div class="col-sm-12 col-md-6 col-lg-6 signup-form">
@@ -92,10 +92,17 @@
 				<label for="input_birthdate">BirthDate &nbsp;</label>
 				<form:input class="form-group" path="birthDate" id="input_birthdate" size="30" />
 				<font color="red"><form:errors path="birthDate" /></font>
-				
 			</div>
-			<button class="btn btn-lg btn-primary btn-block" type="submit">Sign
+			<div class="col-sm-12 col-md-6 col-lg-6 signup-form">
+				<label for="input_profile_picture">Upload Profile Picture</label> 
+				<input type="file" name="profilePicture"/>
+				<font color="red"><form:errors path="profilePicture"></form:errors></font>
+			</div>
+			<div class="col-sm-12 col-md-5 col-lg-5 signup-form">
+				<button class="btn btn-sm btn-primary btn-block" type="submit">Sign
 				Up</button>
+			</div>
+			
 		</form:form>
 	</div>
 	<!-- /container -->

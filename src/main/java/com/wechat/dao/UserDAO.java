@@ -55,10 +55,10 @@ public class UserDAO extends BaseDAO{
 		return searchResults;
 	}
 	
-	public User createNewUser(String firstName, String lastName, String role, String username, String password, String email, String birthDate) throws ParseException{
+	public User createNewUser(String firstName, String lastName, String role, String username, String password, String email, String birthDate, String profilePictureName) throws ParseException{
 		
 		String queueName  =username.concat(firstName);
-		User newUser = new User(firstName, lastName, role, birthDate, username, password, email, queueName);
+		User newUser = new User(firstName, lastName, role, birthDate, username, password, email, queueName, profilePictureName);
 		
 		//Session session = new Configuration().configure().buildSessionFactory().openSession();
 		Session session  =getSession();
@@ -103,6 +103,7 @@ public class UserDAO extends BaseDAO{
 						newUser.setFirstName(f.getConnectedUser().getFirstName());
 						newUser.setLastName(f.getConnectedUser().getLastName());
 						newUser.setUsername(f.getConnectedUser().getUsername());
+						newUser.setProfilePictureName(f.getConnectedUser().getProfilePictureName());
 						userFriendList.add(newUser);
 						//jsonObject.addProperty("username", f.getConnectedUser().getUsername());
 						//jsonObject.addProperty("firstName", f.getConnectedUser().getFirstName());
@@ -136,6 +137,7 @@ public class UserDAO extends BaseDAO{
 						newUser.setFirstName(f.getConnectedUser().getFirstName());
 						newUser.setLastName(f.getConnectedUser().getLastName());
 						newUser.setUsername(f.getConnectedUser().getUsername());
+						newUser.setProfilePictureName(f.getConnectedUser().getProfilePictureName());
 						userFriendList.add(newUser);
 						//jsonObject.addProperty("username", f.getConnectedUser().getUsername());
 						//jsonObject.addProperty("firstName", f.getConnectedUser().getFirstName());

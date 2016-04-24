@@ -16,8 +16,10 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.hibernate.annotations.Cascade;
+import org.springframework.web.multipart.MultipartFile;
 
 @Entity
 @Table(name="user_table")
@@ -30,6 +32,12 @@ public class User extends Person implements Serializable{
 	private String queueName;
 	private Date isCreatedOn;
 	private Boolean isActive;
+	private String profilePictureName;
+	
+	
+	@Transient
+	private MultipartFile profilePicture;
+	
 	
 	@ManyToMany(fetch=FetchType.EAGER)
 	private Collection<Friend> friendList = new ArrayList<Friend>();
@@ -43,7 +51,7 @@ public class User extends Person implements Serializable{
 		this.friendList = new ArrayList<Friend>();
 	}
 
-	public User(String firstName, String lastName, String role, String birthDate,String username, String password, String email, String queueName) throws ParseException{
+	public User(String firstName, String lastName, String role, String birthDate,String username, String password, String email, String queueName, String profilePictureName) throws ParseException{
 		super(firstName, lastName, role, birthDate);
 		this.username = username;
 		this.password = password;
@@ -53,6 +61,7 @@ public class User extends Person implements Serializable{
 		this.isCreatedOn = new Date();
 		this.friendList = new ArrayList<Friend>();
 		this.joinedChatRooms = new ArrayList<Chatroom>();
+		this.profilePictureName = profilePictureName;
 	}
 
 	public String getUsername() {
@@ -109,6 +118,22 @@ public class User extends Person implements Serializable{
 
 	public void setFriendList(Collection<Friend> friendList) {
 		this.friendList = friendList;
+	}
+
+	public String getProfilePictureName() {
+		return profilePictureName;
+	}
+
+	public void setProfilePictureName(String profilePictureName) {
+		this.profilePictureName = profilePictureName;
+	}
+
+	public MultipartFile getProfilePicture() {
+		return profilePicture;
+	}
+
+	public void setProfilePicture(MultipartFile profilePicture) {
+		this.profilePicture = profilePicture;
 	}
 
 	@Override

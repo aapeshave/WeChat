@@ -66,14 +66,14 @@ public class IndexController {
 	}
 	
 	@RequestMapping(method= RequestMethod.GET,value="/showProfile.htm")
-	public void showProfile(HttpSession session, HttpServletRequest request, HttpServletResponse response) throws IOException
+	public String showProfile(HttpSession session, HttpServletRequest request, HttpServletResponse response) throws IOException
 	{
 		//Boolean someValue = userService.addFriend(userService.getUserByUsername("aapeshave"), "sanket007");
 		//System.out.println(someValue);
 		//System.out.println(userService.getFriendList("sanket007"));
 		//System.out.println(userService.acceptFriend(userService.getUserByUsername("aapeshave"), "sanket007"));
 		System.out.println("Showing Profile");
-		
+		return "profile";
 	}
 	
 	@RequestMapping(method=RequestMethod.POST,value="/addNewFreind.htm")
@@ -97,8 +97,11 @@ public class IndexController {
 	{
 		User currentUser = (User) session.getAttribute("user");
 		String friendList = userService.getFriendList(currentUser.getUsername());
-		if(friendList!=null)
+		if(friendList!=null){
+			//System.out.println(friendList);
 			response.getWriter().write(friendList);
+			
+		}
 		else
 		{
 			System.out.println("sending error");

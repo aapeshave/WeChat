@@ -130,6 +130,8 @@
 						${sessionScope.user.lastName}</h3>
 					<input type="hidden" id="userNameTextFieldHidden"
 						name="usrnameHiddenField" value="${sessionScope.user.username}" />
+					<input type="hidden" id="servletContextValueHidden"
+						name="usrnameHiddenField" value="${pageContext.request.contextPath}" />
 				</div>
 				<!-- Add New Friends Collapse -->
 				<div class="row">

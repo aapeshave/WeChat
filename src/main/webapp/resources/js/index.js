@@ -78,15 +78,23 @@ $('document').ready(function() {
 				//alert(msg.firstName);
 				try{
 					//var jsonObj = JSON.parse(msg);
-					
+					//var ctx = <%=request.getContextPath()%>;
+					var $ctx = $('#servletContextValueHidden').val();
 					$.each(msg, function (idx, value) {
 						if(value.firstName!='NULL'){
 							var toAppend = "<div class=\"col-xs-6 col-sm-3 placeholder friends-div\">";
-							toAppend +="<img src=\"data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" +
-									"\"width=\"200\" " +
-									"height=\"200\" " +
-									"class=\"img-responsive\"" +
-									"alt=\"Generic placeholder thumbnail\">";
+							if(value.profilePictureName!=null){
+								//alert("iamge is not null");
+								toAppend +="<img src="+$ctx+"/"+value.profilePictureName+" width=\"200\" height=\"200\"   />";
+							}
+							else{
+								toAppend +="<img src=\"data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" +
+								"\"width=\"200\" " +
+								"height=\"200\" " +
+								"class=\"img-responsive\"" +
+								"alt=\"Generic placeholder thumbnail\">";
+							}
+							
 							toAppend+="<h4>"+value.firstName+" "+ value.lastName+ "</h4>";
 							toAppend+="<span class=\"text-muted\">Send Message</span>";
 							$('#my-friends-results-div').append(toAppend);
@@ -149,15 +157,22 @@ $('document').ready(function() {
 						$('#my-pending-friends-results-div').html("Currently you have no pending requests!");
 					}
 					else{
+						var $ctx = $('#servletContextValueHidden').val();
 						$.each(msg, function (idx, value) {
 							
 							if(value.firstName!= 'NULL'){
 								var toAppend = "<div class=\"col-xs-6 col-sm-3 placeholder pending-friends-div\">";
-								toAppend +="<img src=\"data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" +
-										"\"width=\"200\" " +
-										"height=\"200\" " +
-										"class=\"img-responsive\"" +
-										"alt=\"Generic placeholder thumbnail\">";
+								if(value.profilePictureName!=null){
+									//alert("iamge is not null");
+									toAppend +="<img src="+$ctx+"/"+value.profilePictureName+" width=\"200\" height=\"200\"   />";
+								}
+								else{
+									toAppend +="<img src=\"data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" +
+									"\"width=\"200\" " +
+									"height=\"200\" " +
+									"class=\"img-responsive\"" +
+									"alt=\"Generic placeholder thumbnail\">";
+								}
 								toAppend+="<h4>"+value.firstName+" "+ value.lastName+ "</h4>";
 								toAppend+="<span class=\"hidden\">"+value.username+ "</span>";
 								toAppend+="<span class=\"text-muted\"><a class=\"link-to-accept-friend\">Accpet</a></span>";

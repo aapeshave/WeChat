@@ -31,8 +31,8 @@ public class UserService {
 			return null;
 	}	
 	
-	public User adduser(String firstName, String lastName, String role, String username, String password, String email, String birthDate) throws ParseException{
-		return userDAO.createNewUser(firstName, lastName, role, username, password, email, birthDate);
+	public User adduser(String firstName, String lastName, String role, String username, String password, String email, String birthDate, String profilePictureName) throws ParseException{
+		return userDAO.createNewUser(firstName, lastName, role, username, password, email, birthDate,profilePictureName);
 	}
 	
 	public Boolean addFriend(User user, String newFrienduserName){
