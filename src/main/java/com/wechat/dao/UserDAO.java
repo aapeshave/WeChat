@@ -174,6 +174,21 @@ public class UserDAO extends BaseDAO{
 		return null;
 	}
 	
+	public Boolean checkIfEmailAlreadyExists(String emailAddress){
+		
+				Session session  =getSession();
+				Query q = session.createQuery("from User u where u.email=:emailAddress");
+				q.setString("emailAddress", emailAddress);
+								
+				User u =(User) q.uniqueResult();
+				returnSession(session);
+				if(u==null){
+					return Boolean.TRUE;
+				}
+		return Boolean.FALSE;
+	}
+	
+	
 	public String getQueueNameOfUser(String username){
 		User currentUser = getUserByUsername(username);
 		if(currentUser!=null){

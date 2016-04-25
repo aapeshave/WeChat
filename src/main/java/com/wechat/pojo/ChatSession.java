@@ -3,6 +3,7 @@ package com.wechat.pojo;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.HashMap;
 
 import javax.persistence.Entity;
@@ -20,8 +21,8 @@ public class ChatSession {
 	@GeneratedValue
 	private long chatSessionID;
 	
-	private User sender;
-	private User receiver;
+	private String sender;
+	private String receiver;
 	private Timestamp timeStamp;
 	private Boolean isArchived;
 	
@@ -29,6 +30,17 @@ public class ChatSession {
 		this.isArchived  = Boolean.FALSE;
 	}
 	
+	
+	
+	public ChatSession(String sender, String receiver) {
+		super();
+		this.sender = sender;
+		this.receiver = receiver;
+		this.isArchived = Boolean.FALSE;
+		this.timeStamp  =new Timestamp(new Date().getTime());
+		this.chatHistory = new ArrayList<ChatMessage>();
+	}
+
 	@OneToMany(mappedBy="chatSession", fetch = FetchType.EAGER)
 	private Collection<ChatMessage> chatHistory = new ArrayList<ChatMessage>();
 	
@@ -38,16 +50,16 @@ public class ChatSession {
 	public void setChatSessionID(long chatSessionID) {
 		this.chatSessionID = chatSessionID;
 	}
-	public User getSender() {
+	public String getSender() {
 		return sender;
 	}
-	public void setSender(User sender) {
+	public void setSender(String sender) {
 		this.sender = sender;
 	}
-	public User getReceiver() {
+	public String getReceiver() {
 		return receiver;
 	}
-	public void setReceiver(User receiver) {
+	public void setReceiver(String receiver) {
 		this.receiver = receiver;
 	}
 	public Timestamp getTimeStamp() {
@@ -61,5 +73,14 @@ public class ChatSession {
 	}
 	public void setIsArchived(Boolean isArchived) {
 		this.isArchived = isArchived;
+	}
+
+	@Override
+	public String toString() {
+		return "ChatSession [chatSessionID=" + chatSessionID + ", sender=" + sender + ", receiver=" + receiver
+				+ ", timeStamp=" + timeStamp + ", isArchived=" + isArchived + "]";
 	}	
+	
+	
+	
 }

@@ -22,7 +22,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.wechat.pojo.ChatSession;
 import com.wechat.pojo.User;
+import com.wechat.service.ChatServices;
 import com.wechat.service.SearchServices;
 import com.wechat.service.UserService;
 
@@ -34,6 +36,9 @@ public class IndexController {
 	
 	@Autowired
 	UserService userService;
+	
+	@Autowired
+	ChatServices chatService;
 	
 	@Autowired
 	ServletContext servletContext;
@@ -72,7 +77,14 @@ public class IndexController {
 		//System.out.println(someValue);
 		//System.out.println(userService.getFriendList("sanket007"));
 		//System.out.println(userService.acceptFriend(userService.getUserByUsername("aapeshave"), "sanket007"));
+		//long result = chatService.createChatSessionFromSenderAndReceiver("sanket007", "aapeshave");
+		//ChatSession chatSession = chatService.returnChatSessionIfAvailable("aapeshave", "sanket007");
+		//System.out.println(result);
+		//System.out.println(chatSession);
+		System.out.println(chatService.receiveMessage("aapeshave"));
 		System.out.println("Showing Profile");
+		
+		
 		return "profile";
 	}
 	

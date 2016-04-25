@@ -44,7 +44,24 @@ public class UserValidator implements Validator {
 		if (someUser != null) {
 			errors.rejectValue("username", "error.invalid.user", "Username Already Exists");
 		}
-
+		
+		if(!userService.checkIfEmailAddressIsUnique(user.getEmail())){
+			errors.rejectValue("email", "error.invalid.user", "Email Address Already Exists");
+		}
+		
+		
+		//Matcher to remove Specials Characters
+		Pattern pt = Pattern.compile("[^a-zA-Z0-9]");
+		String usernameOfuser = user.getUsername();
+        Matcher match= pt.matcher(usernameOfuser);
+        while(match.find())
+        {
+            String s= match.group();
+            usernameOfuser=usernameOfuser.replaceAll("\\"+s, "");
+        }
+		user.setUsername(usernameOfuser);
+		
+		//For Image
 		Pattern pattern = Pattern.compile(IMAGE_PATTERN);
 		Matcher matcher;
 		MultipartFile profilePhoto = user.getProfilePicture();

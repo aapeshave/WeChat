@@ -101,6 +101,7 @@
 					<li><a href="#">Analytics</a></li>
 					<li><a href="#">Export</a></li>
 					<li><a id="load-friends-link">Refresh Online Friends</a></li>
+					<li><a id="load-unread-messages-link">Get Unread Messages</a></li>
 				</ul>
 				<!--  <ul class="nav nav-sidebar my-online-friends-result">
 					<!--  
@@ -117,10 +118,7 @@
 						
 				</ul> -->
 
-				<ul class="nav nav-sidebar">
-					<li><a href="">Nav item again</a></li>
-					<li><a href="">One more nav</a></li>
-					<li><a href="">Another nav item</a></li>
+				<ul class="nav nav-sidebar insert-another-ul">
 				</ul>
 			</div>
 			<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
@@ -132,6 +130,9 @@
 						name="usrnameHiddenField" value="${sessionScope.user.username}" />
 					<input type="hidden" id="servletContextValueHidden"
 						name="usrnameHiddenField" value="${pageContext.request.contextPath}" />
+				</div>
+				<div class="row">
+					<p id="localStorageHTML"></p>
 				</div>
 				<!-- Add New Friends Collapse -->
 				<div class="row">

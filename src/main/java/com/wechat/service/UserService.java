@@ -42,6 +42,13 @@ public class UserService {
 		return null;
 	}
 	
+	public Boolean checkIfEmailAddressIsUnique(String emailAddress){
+		if(emailAddress!=null && !emailAddress.isEmpty()){
+			return userDAO.checkIfEmailAlreadyExists(emailAddress);
+		}
+		return Boolean.FALSE;
+	}
+	
 	public String getFriendList(String username){
 		if(null != username && !username.isEmpty()){
 			//ArrayList<String> friendList = userDAO.getFriendList(username);

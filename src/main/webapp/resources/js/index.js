@@ -13,8 +13,18 @@ $('document').ready(function() {
 		$( "#form-add-friends" ).toggle( "slow" );
 	});*/	
 	
-	//Calls to delete all divs from panels 
+	//Check whether local storage is available or not
+	if (typeof(Storage) !== "undefined") {
+	    // Store
+	    //localStorage.setItem("lastname", "Smith");
+	    // Retrieve
+	    //document.getElementById("localStorageHTML").innerHTML = localStorage.getItem("lastname");
+	} else {
+	    document.getElementById("localStorageHTML").innerHTML = "Sorry, your browser does not support Web Storage...";
+	}
 	
+	
+	//Calls to delete all divs from panels 	
 	username =  $('#userNameTextFieldHidden').val();
 	
 	$('#panel-my-pending-friends').on('hidden.bs.collapse', function () {
@@ -35,9 +45,8 @@ $('document').ready(function() {
 //		//alert("loading friends")
 //	},5000);
 	
-	
+	//Load Online Freinds
 	$('#load-friends-link').click(function() {
-		alert("Loading friends");
 		$('.my-online-friends-result').remove();
 		$('.my-online-friends-result-item').remove();
 		$.ajax({
@@ -61,6 +70,57 @@ $('document').ready(function() {
 	    });
 		
 	});
+	
+	//Function for appending data to session storage
+	function appendToStorage(name, data){
+	    var old = sessionStorage.getItem(name);
+	    if(old === null) old = "";
+	    sessionStorage.setItem(name, old + data);
+	}
+	
+	
+	
+	//Load Unread Messages to the SessionStorage of Browser
+	$('#load-unread-messages-link').click(function() {
+		alert("loading unread messages");
+		$('.my-unread-messages-result').remove();
+		$('.my-unread-messages-result-item').remove();
+		$.ajax({
+	        type: "POST",
+	        url: "receiveMessage.htm",
+	        data: {username: username},
+	        dataType:"json",
+	        success: function (dataServer) {
+	        	if(dataServer != null){
+	        		$('.insert-another-ul').append("<ul class=\"nav nav-sidebar my-online-friends-result\">");
+	        		//$('.insert-another-ul').append("<li class=\"my-unread-messages-result-item\">Unread Messages</li>");
+	        		$.each(dataServer, function (idx, value) {
+						//alert(value.sentFrom);
+						//alert(value.message);
+						//appendToStorage(value.setFrom, value.message);
+						//document.getElementById("localStorageHTML").innerHTML = sessionStorage.getItem(value.setFrom);
+	        			if(sessionStorage.getItem(value.sentFrom)==null){
+	        				sessionStorage.setItem(value.sentFrom, JSON.stringify(value.message) );
+	        				var toAppend = "<li class=\"my-unread-messages-result-item\"><a data-toggle=\"collapse\" class=\"chat-with-friend\" href=\"#panel-chat-window\">"+value.sentFrom+"</a></li>";
+	    	        		$('.insert-another-ul').append(toAppend);
+	        			}
+	        			else{
+	        				var oldData = sessionStorage.getItem(value.sentFrom);
+	        				sessionStorage.setItem(value.sentFrom, oldData+ JSON.stringify(value.message));
+	        			}
+					});
+	        		$('.insert-another-ul').append("</ul>")
+	        	}
+	    	},
+	    	error: function(err){
+	    		alert(err);
+	    	}
+	    });
+		document.getElementById("localStorageHTML").innerHTML = sessionStorage.getItem('sanket007');
+	});
+	
+	
+
 	
 	//Ajax call for loading list of friends
 	$('#panel-my-friends').on('show.bs.collapse', function () {
@@ -119,9 +179,9 @@ $('document').ready(function() {
 	});
 	
 	//Send Message AJAX Call
-	$('#chat-send-btn').click(function() {
-		alert("Send button clicked");
-		alert(toChatWithUserName);
+	$('#chat-send-btn').click(function(ev) {
+		//alert("Send button clicked");
+		//alert(toChatWithUserName);
 		var message = $('#chat-text-input').val();
 		$.ajax({
 	        type: "POST",
@@ -135,7 +195,7 @@ $('document').ready(function() {
 	        //alert(err);
 	    });
 		$('#result-chat-paragraph').append("<div class=\"col-sm-8 col-sm-offset-2 col-md-9 col-md-offset-2 well well-sm self-message\"><p>"+message+"</p></div>");
-		return false;
+		ev.preventDefault();
 	});
 	
 	//Ajax call for loading list of friends
@@ -249,6 +309,11 @@ $(document).on('click','.chat-with-friend',function(){
 	var $aText = $(this).text();
 	//alert($aText);
 	toChatWithUserName = $aText;
+	setInterval(function() {
+		function unreadMessages(toChatWithUserName) {
+			alert("Checking Unread Messages from: "+toChatWithUserName);
+		}
+	},5000);
 	
 });
 
@@ -304,7 +369,7 @@ $(document).on('click', '.send-request-button', function () {
    
 });
 
-
+//Link to accept friend
 $(document).on('click', '.link-to-accept-friend', function () {
 	var $span = $(this).parent().prev();
 	var $username = $span.text();

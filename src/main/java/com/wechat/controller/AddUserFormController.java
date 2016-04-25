@@ -85,10 +85,8 @@ public class AddUserFormController {
 		        
 		        user.getProfilePicture().transferTo(file);
 		        photolink = "/resources/images/"+fileNamewithExt;
-//		        
-		        System.out.println("Link to photo: "+photolink);
-//		        System.out.println();
 		        
+		        System.out.println("Link to photo: "+photolink);
 		        String BirthDate = new SimpleDateFormat("mm/dd/yyyy").format((user.getBirthDate()));
 				
 		        User newUser = userService.adduser(user.getFirstName(), user.getLastName(), "User", user.getUsername(), user.getPassword(), user.getEmail(), BirthDate, photolink);
