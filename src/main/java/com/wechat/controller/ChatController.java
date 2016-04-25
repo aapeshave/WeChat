@@ -106,8 +106,6 @@ public class ChatController {
 		String message = chatService.receiveMessage(keyUserName);
 		if(message!=null)
 			response.getWriter().write(message);
-		else
-			response.sendError(403);
 	}
 	
 }

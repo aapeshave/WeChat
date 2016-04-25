@@ -101,7 +101,7 @@
 					<li><a href="#">Analytics</a></li>
 					<li><a href="#">Export</a></li>
 					<li><a id="load-friends-link">Refresh Online Friends</a></li>
-					<li><a id="load-unread-messages-link">Get Unread Messages</a></li>
+					
 				</ul>
 				<!--  <ul class="nav nav-sidebar my-online-friends-result">
 					<!--  
@@ -119,6 +119,7 @@
 				</ul> -->
 
 				<ul class="nav nav-sidebar insert-another-ul">
+					<li><a id="load-unread-messages-link">Get Unread Messages</a></li>
 				</ul>
 			</div>
 			<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
