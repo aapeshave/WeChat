@@ -4,6 +4,7 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import org.hibernate.hql.internal.ast.tree.BooleanLiteralNode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -82,5 +83,9 @@ public class UserService {
 	
 	public Boolean acceptFriend(User user, String newFrienduserName){
 		return friendDAO.acceptFriend(user, newFrienduserName);
+	}
+	
+	public Boolean deleteUserFromDatabase(String username){
+		return userDAO.deleteUserFromDatabase(username);
 	}
 }

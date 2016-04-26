@@ -77,7 +77,7 @@ public class UserDAO extends BaseDAO{
 		try{
 			User searchUser = (User) searchQuery.uniqueResult();
 			returnSession(session);
-			if(searchUser!=null)
+			if(searchUser!=null && searchUser.getIsActive()==Boolean.TRUE)
 				return searchUser;
 		}
 		catch(HibernateException hibException){
@@ -91,7 +91,7 @@ public class UserDAO extends BaseDAO{
 		if(currentUser!=null){
 			Collection<Friend> collectionOfFriends = currentUser.getFriendList();
 			if(collectionOfFriends!=null){
-				JsonObject jsonObject = new JsonObject();
+				//JsonObject jsonObject = new JsonObject();
 				//ArrayList<String> friendList = new ArrayList<String>();
 				ArrayList<User> userFriendList = new ArrayList<User>();
 				for(Friend f : collectionOfFriends){
@@ -125,7 +125,7 @@ public class UserDAO extends BaseDAO{
 		if(currentUser!=null){
 			Collection<Friend> collectionOfFriends = currentUser.getFriendList();
 			if(collectionOfFriends!=null){
-				JsonObject jsonObject = new JsonObject();
+				//JsonObject jsonObject = new JsonObject();
 				//ArrayList<String> friendList = new ArrayList<String>();
 				ArrayList<User> userFriendList = new ArrayList<User>();
 				System.out.println("Printing Friend List of: "+currentUser.getUsername());
@@ -195,5 +195,24 @@ public class UserDAO extends BaseDAO{
 			return currentUser.getQueueName();
 		}
 		return null;
+	}
+	
+	public Boolean deleteUserFromDatabase(String username){
+		try{
+			Session session = getSession();
+			User selectedUser = (User) session.load(User.class, getUserByUsername(username).getPersonId());
+			if(selectedUser!=null){
+				begin(session);
+				selectedUser.setIsActive(Boolean.FALSE);
+				session.update(selectedUser);
+				commit(session);
+				returnSession(session);
+				return Boolean.TRUE;
+			}
+		}
+		catch(Exception e){
+			System.out.println("Error while deleting user. Error: "+e);
+		}
+		return Boolean.FALSE;
 	}
 }

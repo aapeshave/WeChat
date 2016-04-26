@@ -1,6 +1,7 @@
 package com.wechat.pojo;
 
 import java.sql.Timestamp;
+import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -23,6 +24,14 @@ public class ChatMessage {
 	
 	@ManyToOne
 	private ChatSession chatSession;
+	
+	
+	
+	public ChatMessage() {
+		super();
+		this.isArchived = Boolean.FALSE;
+		this.timestamp  =new Timestamp(new Date().getTime());
+	}
 	
 	public ChatSession getChatSession() {
 		return chatSession;
@@ -66,4 +75,10 @@ public class ChatMessage {
 	public void setTimestamp(Timestamp timestamp) {
 		this.timestamp = timestamp;
 	}
+	@Override
+	public String toString() {
+		return "ChatMessage [messageID=" + messageID + ", contentType=" + contentType + ", message=" + message
+				+ ", isRead=" + isRead + ", isArchived=" + isArchived + ", timestamp=" + timestamp + "]";
+	}
+	
 }

@@ -41,13 +41,13 @@ public class ChatServices {
 		this.myAdmin = this.myRabbitContext.getBean(AmqpAdmin.class);
 	}
 
-	public long createChatSessionFromSenderAndReceiver(String sender, String receiver){
+	public Long createChatSessionFromSenderAndReceiver(String sender, String receiver){
 		if(null != sender && !sender.isEmpty()){
 			if(null != receiver && !receiver.isEmpty()){
 				return chatDAO.createChatSessionFromSenderAndReceiver(sender, receiver);
 			}
 		}
-		return 0;
+		return null;
 	}
 	
 	public ChatSession returnChatSessionIfAvailable(String sender, String receiver){
@@ -88,10 +88,7 @@ public class ChatServices {
 				if(message!=null){
 					String usernameTest = message.substring(message.indexOf("/")+1, message.indexOf(";"));
 					String messageTest  =message.substring(message.indexOf(";")+1);
-//					Gson gson  =new GsonBuilder().serializeNulls().create();
-//					Map<String, String> messageMap = new HashMap<String, String>();
-					
-					
+						
 					System.out.println("Message from server: "+message);
 					
 					System.out.println("usernameTest: "+ usernameTest);
@@ -106,6 +103,10 @@ public class ChatServices {
 					
 					Gson gson  =new GsonBuilder().serializeNulls().create();
 					String jsonMessage = gson.toJson(chatMessageOuterObj, chatMessageOuterObj.getClass());
+					
+					if(!message.isEmpty())
+						addChatMessage(usernameTest, keyUserName, message);
+					
 					return jsonMessage;
 					//String gsonMessage = gson.toJson(messageTest, messageTest.getClass());
 					//response.getWriter().write(gsonMessage);
@@ -119,5 +120,9 @@ public class ChatServices {
 		}
 		
 		return null;
+	}
+	
+	public long addChatMessage(String sender,String receiver,String message){
+		return chatDAO.addChatMessage(sender, receiver, message);
 	}
 }

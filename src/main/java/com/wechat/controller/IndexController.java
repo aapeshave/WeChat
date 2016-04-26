@@ -70,23 +70,7 @@ public class IndexController {
 			
 	}
 	
-	@RequestMapping(method= RequestMethod.GET,value="/showProfile.htm")
-	public String showProfile(HttpSession session, HttpServletRequest request, HttpServletResponse response) throws IOException
-	{
-		//Boolean someValue = userService.addFriend(userService.getUserByUsername("aapeshave"), "sanket007");
-		//System.out.println(someValue);
-		//System.out.println(userService.getFriendList("sanket007"));
-		//System.out.println(userService.acceptFriend(userService.getUserByUsername("aapeshave"), "sanket007"));
-		//long result = chatService.createChatSessionFromSenderAndReceiver("sanket007", "aapeshave");
-		//ChatSession chatSession = chatService.returnChatSessionIfAvailable("aapeshave", "sanket007");
-		//System.out.println(result);
-		//System.out.println(chatSession);
-		System.out.println(chatService.receiveMessage("aapeshave"));
-		System.out.println("Showing Profile");
-		
-		
-		return "profile";
-	}
+	
 	
 	@RequestMapping(method=RequestMethod.POST,value="/addNewFreind.htm")
 	public void newFreindRequest(HttpSession session, HttpServletRequest request, HttpServletResponse response) throws IOException

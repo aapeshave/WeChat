@@ -40,6 +40,13 @@ $('document').ready(function() {
 	});
 	
 	
+	$('#panel-chat-window').on('hidden.bs.collapse', function () {
+		$('#result-chat-paragraph > div.col-sm-7.col-sm-offset-2.col-md-8.col-md-offset-2.well.well-sm.self-message').remove();
+		$('.self-message-paragraph').remove();
+		$('.col-sm-7 col-sm-offset-2 col-md-8 col-md-offset-2 well well-sm sender-message').remove();
+	});
+	
+	//Function for checking all messages
 	function checkForMessges(toChatWithUserName) {
 		if(undefined != toChatWithUserName){
 			//alert("Checking Unread Messages from: "+toChatWithUserName);
@@ -47,7 +54,7 @@ $('document').ready(function() {
 				var message = sessionStorage.getItem(toChatWithUserName);
 				sessionStorage.removeItem(toChatWithUserName); 
 				//alert(message);
-				$('#result-chat-paragraph').append("<div class=\"col-sm-8 col-sm-offset-2 col-md-9 col-md-offset-2 well well-sm sender-message\"><p>"+message+"</p></div>");
+				$('#result-chat-paragraph').append("<div class=\"col-sm-7 col-sm-offset-2 col-md-8 col-md-offset-2 well well-sm sender-message\"><p class=\"self-message-paragraph\">"+message+"</p></div>");
 			}
 		}
 	}
@@ -168,13 +175,13 @@ $('document').ready(function() {
 	    		//alert(err);
 	    	}
 	    });
-	},5000);
+	},2000);
 
 	//Automatically Load Unread messages
 	setInterval(function() {
 	      // Do something every 5 seconds
 		checkForMessges(toChatWithUserName);
-	}, 5000);
+	}, 2000);
 	
 	//Ajax call for loading list of friends
 	$('#panel-my-friends').on('show.bs.collapse', function () {
@@ -249,7 +256,7 @@ $('document').ready(function() {
 	            }).error(function (err) {
 	        //alert(err);
 	    });
-		$('#result-chat-paragraph').append("<div class=\"col-sm-8 col-sm-offset-2 col-md-9 col-md-offset-2 well well-sm self-message\"><p>"+message+"</p></div>");
+		$('#result-chat-paragraph').append("<div class=\"col-sm-7 col-sm-offset-2 col-md-8 col-md-offset-2 well well-sm self-message\"><p class=\"self-message-paragraph\">"+message+"</p></div>");
 		//alert("Now calling checkMessgae Function");
 		//checkForMessges(toChatWithUserName);
 		ev.preventDefault();
@@ -366,6 +373,8 @@ $(document).on('click','.chat-with-friend',function(){
 	var $aText = $(this).text();
 	//alert($aText);
 	toChatWithUserName = $aText;	
+	var element = document.getElementById("panel-heading-of-chat-window");
+	element.innerHTML = "Chat with "+toChatWithUserName;
 });
 
 //$(document).on('click','#chat-send-btn',function(){

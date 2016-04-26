@@ -2,6 +2,7 @@ package com.wechat.controller;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 import javax.servlet.ServletContext;
@@ -92,6 +93,15 @@ public class AddUserFormController {
 		        User newUser = userService.adduser(user.getFirstName(), user.getLastName(), "User", user.getUsername(), user.getPassword(), user.getEmail(), BirthDate, photolink);
 				HttpSession webSession = request.getSession();
 				webSession.setAttribute("user", newUser);
+				
+				if(servletContext!=null){
+					ArrayList<String> onlineUsers = (ArrayList<String>) servletContext.getAttribute("loggedInUsersList");
+					if(onlineUsers==null)
+						onlineUsers = new ArrayList<String>();
+					onlineUsers.add(newUser.getUsername());
+					servletContext.setAttribute("loggedInUsersList", onlineUsers);
+				}
+				
 				
 				return "index";
 		        //return null;

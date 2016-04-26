@@ -11,6 +11,11 @@ body {
   margin: 0 auto;
 }
 
+p#error-passowrd{
+	color: firebrick;
+	margin-top: 10px;
+}
+
 .form-signup .form-signup-heading,
 .form-signup .checkbox .signup-form{
   margin-bottom: 10px;

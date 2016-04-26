@@ -216,14 +216,14 @@
 					</div>
 				</div>
 				<!-- End Friends Collapse -->
-
+				
+				<!-- Chatting Window Begins -->
 				<div class="row placeholders">
 					<div class="collapse" id="panel-chat-window">
 						<div class="panel-heading">
-							<h3 class="panel-title">Chat Window</h3>
+							<h3 class="panel-title" id="panel-heading-of-chat-window">Chat Window</h3>
 						</div>
 						<div class="panel-body">
-							<p>Chatting window will appear over here</p>
 							<div class="row" id="main-chatting-window">
 								<div class="row">
 									<div class="col-sm-6 col-sm-offset-2 col-md-6 col-md-offset-2">
@@ -278,6 +278,10 @@
 		</div>
 	</div>
 	<!--End of Log-in Modal-->
-
+	<!-- <footer class="footer">
+      <div class="container">
+        <p class="text-muted">Place sticky footer content here.</p>
+      </div>
+    </footer> -->
 </body>
 </html>

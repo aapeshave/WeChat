@@ -6,6 +6,8 @@
 /* Move down content because we have a fixed navbar that is 50px tall */
 body {
   padding-top: 50px;
+  /* Margin bottom by footer height */
+  margin-bottom: 60px;
 }
 
 
@@ -49,6 +51,22 @@ div .sender-message{
 }
 
 /*Own CSS End here*/
+
+
+/* CSS for sticky footer */
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  /* Set the fixed height of the footer here */
+  height: 60px;
+  background-color: #f5f5f5;
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
 
 .sub-header {
   padding-bottom: 10px;

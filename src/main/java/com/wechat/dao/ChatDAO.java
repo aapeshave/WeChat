@@ -5,9 +5,11 @@ import java.sql.Timestamp;
 
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.wechat.pojo.ChatMessage;
 import com.wechat.pojo.ChatSession;
 import com.wechat.pojo.User;
 
@@ -26,7 +28,7 @@ public class ChatDAO extends BaseDAO
 				begin(session);
 				
 				ChatSession chatSession = new ChatSession(sender, receiver);
-				long id = (Long) session.save(chatSession);
+				Long id = (Long) session.save(chatSession);
 				commit(session);
 				returnSession(session);
 				return id;
@@ -65,5 +67,49 @@ public class ChatDAO extends BaseDAO
 			}	
 		}
 		return null;	
+	}
+	
+	public long addChatMessage(String sender,String receiver,String message){
+		ChatSession oldChatSession = returnChatSessionIfAvailable(sender, receiver);
+		Long id=(long) 0;
+		int flag=0;
+		if(oldChatSession==null){
+			flag=1;
+			id = createChatSessionFromSenderAndReceiver(sender, receiver);
+			
+		}
+		else{
+			id=oldChatSession.getChatSessionID();
+		}
+		Session hibSession = getSession();
+		begin(hibSession);
+		ChatMessage newMessage = new ChatMessage();
+		
+		newMessage.setMessage(message);
+		newMessage.setContentType("String");
+		
+		ChatSession newChatSession = (ChatSession) hibSession.load(ChatSession.class, id);
+		newMessage.setChatSession(newChatSession);
+		try{
+			long messageID = (Long) hibSession.save(newMessage);
+			commit(hibSession);
+			begin(hibSession);
+			newChatSession.getChatHistory().add(newMessage);
+				hibSession.update(newChatSession);
+			commit(hibSession);
+			return 0;
+		}
+		catch(ConstraintViolationException e){
+			System.out.println("Error while adding new Message: "+e.getConstraintName());
+		}
+		catch(Exception e){
+			System.out.println("Error while adding message: "+e);
+		}
+		finally {
+			returnSession(hibSession);
+		}
+		
+		
+		return 0;
 	}
 }

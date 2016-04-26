@@ -74,11 +74,11 @@
 			</div>
 			<div class="col-sm-12 col-md-6 col-lg-6 signup-form">
 				<label for="input_password">Password &nbsp;</label>
-				<form:password path="password" id="input_lastName" size="30" />
+				<form:password path="password" id="input_password" size="30" />
 				<font color="red"><form:errors path="password" /></font>
 			</div>
 			<div class="col-sm-12 col-md-6 col-lg-6 signup-form">
-				<label for="input_retype_password">ReType Password</label> 
+				<label for="inputp_retype_password">ReType Password</label> 
 				<input type="password" id="input_retype_password" size="30" />
 			</div>
 			<div class="col-sm-12 col-md-12 col-lg-12 signup-form">

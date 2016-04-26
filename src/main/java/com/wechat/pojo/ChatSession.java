@@ -75,6 +75,19 @@ public class ChatSession {
 		this.isArchived = isArchived;
 	}
 
+	
+	public Collection<ChatMessage> getChatHistory() {
+		return chatHistory;
+	}
+
+
+
+	public void setChatHistory(Collection<ChatMessage> chatHistory) {
+		this.chatHistory = chatHistory;
+	}
+
+
+
 	@Override
 	public String toString() {
 		return "ChatSession [chatSessionID=" + chatSessionID + ", sender=" + sender + ", receiver=" + receiver
