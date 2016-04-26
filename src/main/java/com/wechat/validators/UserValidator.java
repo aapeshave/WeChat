@@ -50,7 +50,8 @@ public class UserValidator implements Validator {
 		}
 		
 		
-		//Matcher to remove Specials Characters
+		
+		//Matcher to remove Special Characters from username only
 		Pattern pt = Pattern.compile("[^a-zA-Z0-9]");
 		String usernameOfuser = user.getUsername();
         Matcher match= pt.matcher(usernameOfuser);
@@ -60,6 +61,12 @@ public class UserValidator implements Validator {
             usernameOfuser=usernameOfuser.replaceAll("\\"+s, "");
         }
 		user.setUsername(usernameOfuser);
+		
+		//System.out.println(user.getFirstName());
+		user.setFirstName(user.getFirstName().replaceAll("[^\\dA-Za-z ]","").replaceAll("\\s+","").trim());
+		//System.out.println("After Validating First Name: "+user.getFirstName());
+		user.setLastName(user.getLastName().replaceAll("[^\\dA-Za-z ]","").replaceAll("\\s+","").trim());
+		
 		
 		//For Image
 		Pattern pattern = Pattern.compile(IMAGE_PATTERN);

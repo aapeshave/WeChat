@@ -59,7 +59,7 @@
 					</p>
 					<p>Project done by Ajinkya Peshave. NUID: 001626381
 					</p>
-					<p>Project Title: Webbased Chat Application
+					<p>Project Title: Web based Chat Application
 					</p>
 				</div>
 			</div>

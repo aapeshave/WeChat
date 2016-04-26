@@ -59,9 +59,10 @@ public class ChatController {
 
 	@RequestMapping(value = "/sendMessage.htm", method = RequestMethod.POST)
 	public void sendMessage(HttpServletRequest request, HttpServletResponse response) {
-		String unconvertedMessage = request.getParameter("message");
+		String unconvertedMessage = request.getParameter("message").replaceAll("[^\\dA-Za-z ]","").replaceAll("\\s+","").trim();
 		String user = request.getParameter("user");
 		String friendUsername  =request.getParameter("friendUsername");
+		
 //		String queueNameOfUser = searchService.getQueueNameOfUserByUsername(friendUsername);
 //		System.out.println(queueNameOfUser);
 //		String message  ="/"+user+";"+unconvertedMessage;
