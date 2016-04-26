@@ -42,6 +42,30 @@
 </head>
 <body>
 
+	<!-- Modal -->
+	<div class="modal fade" id="my-about-modal" tabindex="-1" role="dialog"
+		aria-labelledby="myModalLabel">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h4 class="modal-title" id="myModalLabel">About us</h4>
+				</div>
+				<div class="modal-body">
+					<p>This project is done as a part of completion of Web Development Tools and Methods course under Guidance of Prof. Yusuf Ozbek
+					</p>
+					<p>Project done by Ajinkya Peshave. NUID: 001626381
+					</p>
+					<p>Project Title: Webbased Chat Application
+					</p>
+				</div>
+			</div>
+		</div>
+	</div>
+
 	<nav class="navbar navbar-inverse navbar-fixed-top">
 	<div class="container-fluid">
 		<div class="navbar-header">
@@ -56,10 +80,11 @@
 		</div>
 		<div id="navbar" class="navbar-collapse collapse">
 			<ul class="nav navbar-nav navbar-right">
-				<li><a href="#">Settings</a></li>
 				<li><a
 					href="/main/showProfile.htm?username=${sessionScope.user.username}">Profile</a></li>
 				<li><a href="#">Help</a></li>
+				<li><a id="link-show-about" data-toggle="modal"
+					data-target="#my-about-modal">About Us</a></li>
 				<li class="dropdown"><a class="dropdown-toggle"
 					data-toggle="dropdown" role="button" aria-haspopup="true"
 					aria-expanded="false">Friends <span class="caret"></span></a>
@@ -79,9 +104,6 @@
 						class="glyphicon glyphicon-log-out" aria-hidden="true"></span>Log-Out
 				</a></li>
 			</ul>
-			<form class="navbar-form navbar-right">
-				<input type="text" class="form-control" placeholder="Search...">
-			</form>
 		</div>
 	</div>
 	</nav>
@@ -101,7 +123,7 @@
 					<li><a href="#">Analytics</a></li>
 					<li><a href="#">Export</a></li>
 					<li><a id="load-friends-link">Refresh Online Friends</a></li>
-					
+
 				</ul>
 				<!--  <ul class="nav nav-sidebar my-online-friends-result">
 					<!--  
@@ -130,7 +152,8 @@
 					<input type="hidden" id="userNameTextFieldHidden"
 						name="usrnameHiddenField" value="${sessionScope.user.username}" />
 					<input type="hidden" id="servletContextValueHidden"
-						name="usrnameHiddenField" value="${pageContext.request.contextPath}" />
+						name="usrnameHiddenField"
+						value="${pageContext.request.contextPath}" />
 				</div>
 				<div class="row">
 					<p id="localStorageHTML"></p>
@@ -216,12 +239,13 @@
 					</div>
 				</div>
 				<!-- End Friends Collapse -->
-				
+
 				<!-- Chatting Window Begins -->
 				<div class="row placeholders">
 					<div class="collapse" id="panel-chat-window">
 						<div class="panel-heading">
-							<h3 class="panel-title" id="panel-heading-of-chat-window">Chat Window</h3>
+							<h3 class="panel-title" id="panel-heading-of-chat-window">Chat
+								Window</h3>
 						</div>
 						<div class="panel-body">
 							<div class="row" id="main-chatting-window">
@@ -235,6 +259,8 @@
 													Message</button>
 											</div>
 										</form>
+										<button id="chat-view-history-button" class="btn btn-default">View
+											ChatHistory</button>
 									</div>
 								</div>
 								<!-- End of row for input message form -->

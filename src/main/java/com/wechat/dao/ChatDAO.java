@@ -2,6 +2,7 @@ package com.wechat.dao;
 
 import java.sql.Time;
 import java.sql.Timestamp;
+import java.util.Collection;
 
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -109,7 +110,13 @@ public class ChatDAO extends BaseDAO
 			returnSession(hibSession);
 		}
 		
-		
 		return 0;
+	}
+	
+	public Collection<ChatMessage> getChatHistory(String sender, String receiver){
+		ChatSession chatSession = returnChatSessionIfAvailable(sender, receiver);
+		if(chatSession!=null)
+			return chatSession.getChatHistory();
+		return null;	
 	}
 }

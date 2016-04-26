@@ -1,5 +1,6 @@
 package com.wechat.service;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -17,6 +18,7 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import com.wechat.configuration.RabbitConfiguration;
 import com.wechat.dao.ChatDAO;
+import com.wechat.pojo.ChatMessage;
 import com.wechat.pojo.ChatSession;
 
 @Service
@@ -124,5 +126,11 @@ public class ChatServices {
 	
 	public long addChatMessage(String sender,String receiver,String message){
 		return chatDAO.addChatMessage(sender, receiver, message);
+	}
+	
+	public Collection<ChatMessage> getChatHistory(String sender, String receiver){
+		if(!sender.isEmpty() && !receiver.isEmpty() && sender!=null && receiver!=null)
+			return chatDAO.getChatHistory(sender, receiver);
+		return null;	
 	}
 }

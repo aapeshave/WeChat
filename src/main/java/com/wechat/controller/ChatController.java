@@ -2,11 +2,15 @@ package com.wechat.controller;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.io.filefilter.RegexFileFilter;
+import org.hibernate.mapping.Collection;
+import org.jboss.logging.annotations.Message;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.amqp.AmqpException;
@@ -20,10 +24,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.wechat.configuration.RabbitConfiguration;
+import com.wechat.pojo.ChatMessage;
+import com.wechat.pojo.User;
 import com.wechat.service.ChatServices;
 import com.wechat.service.SearchServices;
 
@@ -108,4 +115,43 @@ public class ChatController {
 			response.getWriter().write(message);
 	}
 	
+	@RequestMapping(value="/printPdfChatHistory.htm",method = RequestMethod.GET)
+	public ModelAndView printChatHistory (HttpServletRequest request, HttpServletResponse response){
+		Map<Long,ChatMessage> revenueData = new HashMap<Long,ChatMessage>();
+		ChatMessage messsage = new ChatMessage();
+		messsage.setMessage("Sample Message");
+		revenueData.put((long) 1, messsage);
+		return new ModelAndView("PdfRevenueSummary","revenueData",revenueData);
+	}
+	
+	@RequestMapping(value="/printChatHistory.htm",method = RequestMethod.GET)
+	public String printChatHistoryJSP (HttpServletRequest request, HttpServletResponse response){
+		String sender = request.getParameter("sender");
+		String receiver = request.getParameter("receiver");
+		
+		User user = (User) request.getSession().getAttribute("user");
+		if(user==null){
+			request.setAttribute("errorCode", "Please Log in to system to access your chat");
+			return "error";
+		}
+		else{
+			if(!sender.isEmpty()&&!receiver.isEmpty()){
+				if(user.getUsername().equals(sender) || user.getUsername().equals(receiver)){
+					List<ChatMessage> chatHistory = (List) chatService.getChatHistory(sender, receiver);
+					if(chatHistory!=null){
+							request.setAttribute("chatHistory", chatHistory);
+							for(ChatMessage m : chatHistory){
+								System.out.println(m);
+							}
+					}
+					return "chatHistory";
+				}
+				else{
+					request.setAttribute("errorCode", "UnAuthorized Access");
+					return "error";
+				}
+			}
+		}
+		return null;
+	}
 }

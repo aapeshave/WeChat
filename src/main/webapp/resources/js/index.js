@@ -262,6 +262,27 @@ $('document').ready(function() {
 		ev.preventDefault();
 	});
 	
+	
+	//Send Request to View Chat
+	$('#chat-view-history-button').click(function(ev) {
+		//alert("Send button clicked");
+		//alert(toChatWithUserName);
+		var message = $('#chat-text-input').val();
+		
+		$.ajax({
+	        type: "GET",
+	        url: "printChatHistory.htm",
+	        data: {sender: username, receiver:toChatWithUserName },
+	        dataType: "json"
+	    })
+	            .done(function (data) {
+	                
+	            }).error(function (err) {
+	        //alert(err);
+	    });
+		ev.preventDefault();
+	});
+	
 	//Ajax call for loading list of friends
 	$('#panel-my-pending-friends').on('show.bs.collapse', function () {
 		 var $username = $('#userNameTextFieldHidden').val();
