@@ -3,7 +3,9 @@ package com.wechat.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.wechat.dao.AdminDAO;
 import com.wechat.dao.UserDAO;
+import com.wechat.pojo.Admin;
 import com.wechat.pojo.User;
 
 @Service
@@ -11,6 +13,9 @@ public class AuthenticationService {
 
 	@Autowired
 	UserDAO userDAO;
+	
+	@Autowired
+	AdminDAO adminDAO;
 	
 	private static String USER_ROLE="user";
 	
@@ -27,4 +32,11 @@ public class AuthenticationService {
 	
 		return Boolean.FALSE;	
 	}
+	
+	public Admin authenticateAdmin(String email, String password){
+		if(null != email && !email.isEmpty() || null != password && !password.isEmpty()  )
+			return adminDAO.authenticateAdmin(email, password);
+		else
+			return null;
+	}	
 }
