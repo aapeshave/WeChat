@@ -33,7 +33,8 @@ public class User extends Person implements Serializable{
 	private Date isCreatedOn;
 	private Boolean isActive;
 	private String profilePictureName;
-	
+	private long numOfFriends;
+	private long numOfJoinedChatRooms;
 	
 	@Transient
 	private MultipartFile profilePicture;
@@ -49,6 +50,8 @@ public class User extends Person implements Serializable{
 		super();
 		this.joinedChatRooms = new ArrayList<Chatroom>();
 		this.friendList = new ArrayList<Friend>();
+		this.numOfFriends = 0;
+		this.numOfJoinedChatRooms = 0;
 	}
 
 	public User(String firstName, String lastName, String role, String birthDate,String username, String password, String email, String queueName, String profilePictureName) throws ParseException{
@@ -139,6 +142,22 @@ public class User extends Person implements Serializable{
 	@Override
 	public String toString() {
 		return "User [username=" + username + ", password=" + password + "]";
+	}
+
+	public long getNumOfFriends() {
+		return numOfFriends;
+	}
+
+	public void setNumOfFriends(long numOfFriends) {
+		this.numOfFriends = numOfFriends;
+	}
+
+	public long getNumOfJoinedChatRooms() {
+		return numOfJoinedChatRooms;
+	}
+
+	public void setNumOfJoinedChatRooms(long numOfJoinedChatRooms) {
+		this.numOfJoinedChatRooms = numOfJoinedChatRooms;
 	}
 	
 }

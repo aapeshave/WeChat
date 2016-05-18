@@ -34,10 +34,10 @@
 			action="adminLoginAction.htm">
 			<h2 class="form-signin-heading">Please sign in</h2>
 			<label for="input_Email" class="sr-only">Email address</label>
-			<input name="input_email" type="email" id="inputEmail" class="form-control"
-				placeholder="Email address" required autofocus> <label
+			<input name="username" type="text" id="inputEmail" class="form-control"
+				placeholder="Username" required autofocus> <label
 				for="input_Password" class="sr-only">Password</label> <input
-				name="input_password" type="password" id="inputPassword"
+				name="password" type="password" id="inputPassword"
 				class="form-control" placeholder="Password" required>
 			<button class="btn btn-lg btn-primary btn-block" type="submit">Sign
 				in</button>

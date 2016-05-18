@@ -17,4 +17,8 @@ public class AdminService {
 			adminDAO.createNewAdmin(admin);
 		}
 	}
+	
+	public String getOnlineUserTable(){
+		return null;
+	}
 }
